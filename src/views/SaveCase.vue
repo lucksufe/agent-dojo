@@ -231,6 +231,7 @@ git push origin add-my-case
 
     <section class="preview">
       <h2>文件内容预览</h2>
+      <p class="preview-desc">以下为 <code>save-case.md</code> 的完整内容，可下载或复制后放到命令目录中使用：</p>
       <div class="md-preview" v-html="renderedHtml"></div>
     </section>
   </div>
@@ -397,7 +398,13 @@ git push origin add-my-case
 }
 
 .preview h2 {
+  margin-bottom: var(--spacing-sm);
+}
+
+.preview-desc {
+  color: var(--color-text-light);
   margin-bottom: var(--spacing-lg);
+  font-size: 0.95rem;
 }
 
 .md-preview {
