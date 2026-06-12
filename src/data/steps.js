@@ -183,7 +183,7 @@ export ANTHROPIC_MODEL=mimo-v2.5-pro</code></pre>
       </div>
     `,
     code: null,
-    tip: 'Windows 用户添加后需要重启终端或 VS Code 才能生效。Linux/macOS 用户可将 export 命令添加到 ~/.bashrc 或 ~/.zshrc 文件中实现永久生效。',
+    tip: 'Windows 用户添加环境变量后，需要关闭当前终端窗口并重新打开一个新的终端，变量才会生效。Linux/macOS 用户可将 export 命令添加到 ~/.bashrc 或 ~/.zshrc 文件中实现永久生效。',
     encouragement: '环境配置完成！马上就能开始使用了！'
   },
   {
