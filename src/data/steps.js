@@ -35,10 +35,11 @@ export const steps = [
       <p>市面上有很多 Agent 工具，比如 Claude Code、Cursor、GitHub Copilot、Windsurf 等，它们各有特点。</p>
       <p><strong>为什么选择 Claude Code？</strong></p>
       <p>本教程使用 Claude Code 作为教学工具，因为它是 Anthropic 官方出品，功能完整且免费使用。掌握它之后，你也能轻松上手其他 Agent 工具。</p>
-      <p><strong>国内用户建议：</strong>由于网络原因，直接安装可能很慢。建议先切换到淘宝镜像源：</p>
+      <p><strong>国内用户建议：</strong>由于网络原因，直接安装可能很慢。建议先切换到淘宝镜像源，然后再安装：</p>
     `,
-    code: 'npm config set registry https://registry.npmmirror.com/\nnpm install -g @anthropic-ai/claude-code',
-    tip: 'Linux/macOS 用户如遇到权限问题，可在命令前加 sudo。安装完成后可用 npm config get registry 确认镜像源已生效。',
+    code: 'npm config set registry https://registry.npmmirror.com/',
+    code2: 'npm install -g @anthropic-ai/claude-code',
+    tip: 'Linux/macOS 用户如遇到权限问题，可在安装命令前加 sudo。安装完成后可用 npm config get registry 确认镜像源已生效。',
     encouragement: '很好！CLI 工具已安装完成！'
   },
   {

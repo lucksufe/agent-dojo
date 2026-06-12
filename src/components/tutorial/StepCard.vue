@@ -58,6 +58,10 @@ const toggleExpand = () => {
         <pre><code>{{ step.code }}</code></pre>
       </div>
 
+      <div class="step-code" v-if="step.code2">
+        <pre><code>{{ step.code2 }}</code></pre>
+      </div>
+
       <div class="step-tip" v-if="step.tip">
         <span class="tip-icon">💡</span>
         <span>{{ step.tip }}</span>
