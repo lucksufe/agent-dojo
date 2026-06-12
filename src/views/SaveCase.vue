@@ -220,18 +220,19 @@ git push origin add-my-case
       </div>
     </section>
 
-    <section class="actions">
-      <button class="btn btn-primary" @click="downloadMd">
-        下载 save-case.md
-      </button>
-      <button class="btn btn-secondary" @click="saveToClipboard">
-        {{ saved ? '已复制!' : '复制内容' }}
-      </button>
-    </section>
-
     <section class="preview">
-      <h2>文件内容预览</h2>
-      <p class="preview-desc">以下为 <code>save-case.md</code> 的完整内容，点击上方按钮可下载或复制后放到命令目录中使用：</p>
+      <div class="preview-header">
+        <h2>文件内容预览</h2>
+        <div class="actions">
+          <button class="btn btn-primary" @click="downloadMd">
+            下载 save-case.md
+          </button>
+          <button class="btn btn-secondary" @click="saveToClipboard">
+            {{ saved ? '已复制!' : '复制内容' }}
+          </button>
+        </div>
+      </div>
+      <p class="preview-desc">以下为 <code>save-case.md</code> 的完整内容，点击按钮可下载或复制后放到命令目录中使用：</p>
       <div class="md-preview" v-html="renderedHtml"></div>
     </section>
   </div>
@@ -356,7 +357,6 @@ git push origin add-my-case
 .actions {
   display: flex;
   gap: var(--spacing-md);
-  margin-bottom: var(--spacing-2xl);
 }
 
 .btn {
@@ -397,8 +397,15 @@ git push origin add-my-case
   padding: var(--spacing-xl);
 }
 
-.preview h2 {
+.preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: var(--spacing-sm);
+}
+
+.preview-header h2 {
+  margin-bottom: 0;
 }
 
 .preview-desc {
