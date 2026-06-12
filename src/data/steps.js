@@ -108,15 +108,16 @@ export const steps = [
               <li>按 Win + S，搜索"环境变量"</li>
               <li>点击"编辑系统环境变量"</li>
               <li>点击"环境变量"按钮</li>
-              <li>在"用户变量"区域，点击"新建"，添加以下变量：</li>
+              <li>在"用户变量"区域，点击"新建"，<strong>依次添加以下 3 个变量</strong>（每次添加一个）：</li>
             </ol>
+            <p><strong>第 1 个变量：</strong></p>
             <pre><code>变量名: ANTHROPIC_AUTH_TOKEN
-变量值: your-deepseek-api-key
-
-变量名: ANTHROPIC_BASE_URL
-变量值: https://api.deepseek.com/anthropic
-
-变量名: ANTHROPIC_MODEL
+变量值: your-deepseek-api-key</code></pre>
+            <p><strong>第 2 个变量：</strong></p>
+            <pre><code>变量名: ANTHROPIC_BASE_URL
+变量值: https://api.deepseek.com/anthropic</code></pre>
+            <p><strong>第 3 个变量：</strong></p>
+            <pre><code>变量名: ANTHROPIC_MODEL
 变量值: deepseek-v4-pro</code></pre>
           </div>
           <div class="env-code-linux" style="display:none;">
@@ -138,15 +139,16 @@ export ANTHROPIC_MODEL=deepseek-v4-pro</code></pre>
               <li>按 Win + S，搜索"环境变量"</li>
               <li>点击"编辑系统环境变量"</li>
               <li>点击"环境变量"按钮</li>
-              <li>在"用户变量"区域，点击"新建"，添加以下变量：</li>
+              <li>在"用户变量"区域，点击"新建"，<strong>依次添加以下 3 个变量</strong>（每次添加一个）：</li>
             </ol>
+            <p><strong>第 1 个变量：</strong></p>
             <pre><code>变量名: ANTHROPIC_AUTH_TOKEN
-变量值: your-mimo-api-key
-
-变量名: ANTHROPIC_BASE_URL
-变量值: https://api.mimo.xiaomi.com/anthropic
-
-变量名: ANTHROPIC_MODEL
+变量值: your-mimo-api-key</code></pre>
+            <p><strong>第 2 个变量：</strong></p>
+            <pre><code>变量名: ANTHROPIC_BASE_URL
+变量值: https://api.mimo.xiaomi.com/anthropic</code></pre>
+            <p><strong>第 3 个变量：</strong></p>
+            <pre><code>变量名: ANTHROPIC_MODEL
 变量值: mimo-v2.5-pro</code></pre>
           </div>
           <div class="env-code-linux" style="display:none;">
