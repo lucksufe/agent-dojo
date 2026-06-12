@@ -58,6 +58,8 @@ const toggleExpand = () => {
         <pre><code>{{ step.code }}</code></pre>
       </div>
 
+      <div v-if="step.code2Label" class="step-code-label" v-html="step.code2Label"></div>
+
       <div class="step-code" v-if="step.code2">
         <pre><code>{{ step.code2 }}</code></pre>
       </div>
@@ -207,6 +209,15 @@ const toggleExpand = () => {
 
 .step-code {
   margin-top: var(--spacing-md);
+}
+
+.step-code-label {
+  margin-top: var(--spacing-md);
+  color: var(--color-text);
+}
+
+.step-code-label :deep(p) {
+  margin: 0;
 }
 
 .step-code pre {
