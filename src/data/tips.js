@@ -27,7 +27,7 @@ export const tips = [
   {
     category: '配置',
     title: '项目上下文',
-    content: '在项目根目录创建 CLAUDE.md 文件，记录项目规范和偏好，Agent 会自动读取。'
+    content: '使用 /init 命令可以自动生成项目上下文文档（CLAUDE.md），记录项目结构、技术栈、规范等信息。也可以主动让 Agent 分析项目并生成文档。'
   },
   {
     category: '安全',
@@ -38,5 +38,15 @@ export const tips = [
     category: '安全',
     title: '代码审查',
     content: 'Agent 生成的代码也需要人工审查，特别是涉及安全和数据处理的部分。'
+  },
+  {
+    category: '效率',
+    title: '先规划后编码',
+    content: '项目需求复杂时，可以告诉 Agent "暂时不进行编码，先进行需求沟通"，进入规划模式。确认方案后再动手，避免返工。'
+  },
+  {
+    category: '效率',
+    title: '让 Agent 主动提问',
+    content: '告诉 Agent "对于可能有歧义的地方请向我提问"，让它在不确定时主动确认，而不是自行假设。'
   }
 ]

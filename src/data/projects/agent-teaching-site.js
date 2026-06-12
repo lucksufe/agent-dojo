@@ -191,10 +191,52 @@ const toggleComplete = () => {
         agentResponse: '我来创建项目案例，记录整个协作过程，包含每个步骤的用户输入、Agent 响应、代码示例和最终结果。',
         code: null,
         result: '案例素材整理完成'
+      },
+      {
+        title: 'Vercel 部署问题',
+        userMessage: 'Command "npm install" exited with 1 这个项目在vercel deploy时报错',
+        agentResponse: '检查发现是 Vite 版本过高导致兼容性问题。降级到 Vite 5.4 并删除 package-lock.json 让 Vercel 自己生成。',
+        code: `// package.json
+"devDependencies": {
+  "@vitejs/plugin-vue": "^5.0.0",
+  "vite": "^5.4.0"
+}`,
+        result: '部署问题解决'
+      },
+      {
+        title: '移动端适配',
+        userMessage: '目前移动端的适配不太好',
+        agentResponse: '我来添加响应式设计：1) 侧边栏在移动端隐藏，点击汉堡菜单滑出；2) 首页功能卡片改为单列；3) 技巧页面改为单列；4) 调整字体和间距。',
+        code: `@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    left: -250px;
+    z-index: 100;
+  }
+  .sidebar.open {
+    left: 0;
+  }
+}`,
+        result: '移动端适配完成'
+      },
+      {
+        title: '卡片布局优化',
+        userMessage: '进阶实战的卡片在移动端显示效果不好，左侧的标题和右边的进阶字样以及多个tag现在移动端时左右结构根本放不下，能修改为移动端上下结构吗',
+        agentResponse: '修改 ProjectCard 组件，移动端改为上下结构：标题在上，难度标签和标签在下，标签自动换行。',
+        code: `@media (max-width: 768px) {
+  .project-header {
+    flex-direction: column;
+  }
+  .project-meta {
+    flex-direction: row;
+    width: 100%;
+  }
+}`,
+        result: '卡片移动端布局优化完成'
       }
     ],
     finalResult: {
-      description: '成功构建了一个完整的 Agent 使用教学网站，包含入门教程、进阶实战、技巧分享三大模块，支持 DeepSeek、小米 MiMo、Claude 三个 AI 平台，具有交互式引导和社区贡献机制。项目通过 20+ 轮 Agent 交互完成。'
+      description: '成功构建了一个完整的 Agent 使用教学网站，包含入门教程、进阶实战、技巧分享三大模块，支持 DeepSeek、小米 MiMo、Claude 三个 AI 平台，具有交互式引导和社区贡献机制。项目通过 20+ 轮 Agent 交互完成，支持 PC 和移动端访问。'
     },
     tips: [
       '先和 Agent 确认需求再动手，避免返工',
@@ -203,7 +245,10 @@ const toggleComplete = () => {
       '让 Agent 帮你整理对话记录作为项目素材，一举两得',
       '组件设计要考虑数据同步，父子组件通信不能遗漏',
       '新手教程要从最基础的概念开始，比如什么是终端、什么是命令',
-      '案例要展示真实的交互过程，包括多次修改和优化'
+      '案例要展示真实的交互过程，包括多次修改和优化',
+      '移动端适配要提前考虑，响应式设计不能遗漏',
+      '使用 /init 命令可以自动生成项目上下文文档',
+      '也可以主动让 Agent 生成项目文档，方便后续维护'
     ]
   }
 ]
