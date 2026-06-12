@@ -48,5 +48,10 @@ export const tips = [
     category: '效率',
     title: '让 Agent 主动提问',
     content: '告诉 Agent "对于可能有歧义的地方请向我提问"，让它在不确定时主动确认，而不是自行假设。'
+  },
+  {
+    category: '调试',
+    title: '直接粘贴报错信息',
+    content: '调试时可以直接把报错信息粘贴给 Agent，它会分析原因并给出修复方案。也可以让 Agent 读取日志文件进行分析。'
   }
 ]
