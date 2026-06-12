@@ -3,6 +3,7 @@ import { useRouter, useRoute } from 'vue-router'
 
 const router = useRouter()
 const route = useRoute()
+const emit = defineEmits(['navigate'])
 
 const navItems = [
   { path: '/', label: '首页', icon: '🏠' },
@@ -12,6 +13,11 @@ const navItems = [
 ]
 
 const isActive = (path) => route.path === path
+
+const navigate = (path) => {
+  router.push(path)
+  emit('navigate')
+}
 </script>
 
 <template>
@@ -22,7 +28,7 @@ const isActive = (path) => route.path === path
         :key="item.path"
         class="nav-item"
         :class="{ active: isActive(item.path) }"
-        @click="router.push(item.path)"
+        @click="navigate(item.path)"
       >
         <span class="nav-icon">{{ item.icon }}</span>
         <span class="nav-label">{{ item.label }}</span>
@@ -30,7 +36,7 @@ const isActive = (path) => route.path === path
     </nav>
     <div class="sidebar-footer">
       <a
-        href="https://github.com"
+        href="https://github.com/lucksufe/agent-dojo"
         target="_blank"
         rel="noopener"
         class="github-link"
@@ -49,6 +55,7 @@ const isActive = (path) => route.path === path
   display: flex;
   flex-direction: column;
   padding: var(--spacing-md) 0;
+  flex-shrink: 0;
 }
 
 .sidebar-nav {
@@ -99,5 +106,22 @@ const isActive = (path) => route.path === path
 
 .github-link:hover {
   color: var(--color-primary);
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    bottom: 0;
+    width: 250px;
+    z-index: 100;
+    transition: left 0.3s ease;
+    padding-top: var(--spacing-lg);
+  }
+
+  .sidebar.open {
+    left: 0;
+  }
 }
 </style>

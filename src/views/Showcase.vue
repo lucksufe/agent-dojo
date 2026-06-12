@@ -130,4 +130,19 @@ const projects = [...teachingProjects, ...exampleProjects]
 .empty-state h3 {
   margin-bottom: var(--spacing-sm);
 }
+
+@media (max-width: 768px) {
+  .page-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .contribute-banner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .banner-content {
+    text-align: center;
+  }
+}
 </style>

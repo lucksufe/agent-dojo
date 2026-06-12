@@ -125,4 +125,18 @@ const toggleStep = (index, completed) => {
     transform: translateY(0);
   }
 }
+
+@media (max-width: 768px) {
+  .page-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .page-header p {
+    font-size: 0.95rem;
+  }
+
+  .next-card {
+    padding: var(--spacing-lg);
+  }
+}
 </style>

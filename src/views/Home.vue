@@ -168,4 +168,32 @@ const features = [
 .contribute-link {
   margin-top: var(--spacing-md);
 }
+
+@media (max-width: 768px) {
+  .hero {
+    padding: var(--spacing-xl) 0;
+  }
+
+  .hero-title {
+    font-size: 1.8rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+    margin: var(--spacing-xl) 0;
+  }
+
+  .feature-card {
+    padding: var(--spacing-lg);
+  }
+
+  .contribute {
+    padding: var(--spacing-lg);
+  }
+}
 </style>

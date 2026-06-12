@@ -2,10 +2,12 @@
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
+const emit = defineEmits(['toggle-sidebar'])
 </script>
 
 <template>
   <header class="header">
+    <button class="menu-btn" @click="emit('toggle-sidebar')">☰</button>
     <div class="header-brand" @click="router.push('/')">
       <span class="brand-icon">🤖</span>
       <h1 class="brand-title">Agent Dojo</h1>
@@ -22,6 +24,15 @@ const router = useRouter()
   display: flex;
   align-items: center;
   gap: var(--spacing-md);
+}
+
+.menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  padding: var(--spacing-xs);
 }
 
 .header-brand {
@@ -44,5 +55,27 @@ const router = useRouter()
 .brand-subtitle {
   font-size: 0.9rem;
   opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: var(--spacing-md);
+  }
+
+  .menu-btn {
+    display: block;
+  }
+
+  .brand-icon {
+    font-size: 1.5rem;
+  }
+
+  .brand-title {
+    font-size: 1.2rem;
+  }
+
+  .brand-subtitle {
+    display: none;
+  }
 }
 </style>

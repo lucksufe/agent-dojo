@@ -145,4 +145,23 @@ const categoryIcons = {
   color: var(--color-text-light);
   line-height: 1.6;
 }
+
+@media (max-width: 768px) {
+  .page-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .tips-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .category-filter {
+    gap: var(--spacing-xs);
+  }
+
+  .category-btn {
+    font-size: 0.8rem;
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+}
 </style>

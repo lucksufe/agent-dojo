@@ -260,3 +260,24 @@ img {
   padding: 0;
   color: inherit;
 }
+
+/* 移动端响应式 */
+@media (max-width: 768px) {
+  .provider-tabs {
+    flex-wrap: wrap;
+  }
+
+  .provider-tab {
+    padding: var(--spacing-xs) var(--spacing-md);
+    font-size: 0.85rem;
+  }
+
+  .os-tabs {
+    flex-wrap: wrap;
+  }
+
+  .os-tab {
+    flex: 1;
+    text-align: center;
+  }
+}
