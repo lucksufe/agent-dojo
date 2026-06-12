@@ -8,6 +8,7 @@
 2. **Agent 响应可精简**：由于 Agent 回复通常较长，可以概括要点
 3. **记录代码变更**：涉及的代码片段、配置修改要记录
 4. **标注关键节点**：重要的决策、问题解决、功能完成
+5. **记录 Agent 信息**：使用的模型、Agent 名称和版本号
 
 ## 输出格式
 
@@ -21,6 +22,11 @@ export const projects = [
     description: '一句话描述这个项目做了什么',
     tags: ['标签1', '标签2', '标签3'],
     difficulty: 'beginner|intermediate|advanced',
+    agent: {
+      name: 'Agent 名称（如 Claude Code、Cursor 等）',
+      version: 'Agent 版本号',
+      model: '使用的模型名称'
+    },
     steps: [
       {
         title: '步骤标题',
@@ -48,8 +54,15 @@ export const projects = [
 2. 提取所有用户消息（完整保留）
 3. 概括每轮 Agent 响应的要点
 4. 整理涉及的代码片段
-5. 总结最终结果和经验教训
-6. 生成文件并保存到 `src/data/projects/` 目录
+5. 获取当前 Agent 信息（名称、版本、模型）
+6. 总结最终结果和经验教训
+7. 生成文件并保存到 `src/data/projects/` 目录
+
+## 获取 Agent 信息
+
+使用以下命令获取当前 Agent 信息：
+- Claude Code 版本：`claude --version`
+- 模型名称：从对话上下文中获取
 
 ## 文件命名
 

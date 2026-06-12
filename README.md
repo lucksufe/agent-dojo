@@ -66,6 +66,11 @@ src/
   "description": "项目简介",
   "tags": ["标签1", "标签2"],
   "difficulty": "beginner|intermediate|advanced",
+  "agent": {
+    "name": "Agent 名称（如 Claude Code、Cursor 等）",
+    "version": "Agent 版本号",
+    "model": "使用的模型名称"
+  },
   "steps": [
     {
       "title": "步骤标题",

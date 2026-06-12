@@ -63,6 +63,15 @@ const difficultyColors = {
 
     <p class="project-description">{{ project.description }}</p>
 
+    <div class="project-agent-info" v-if="project.agent">
+      <span class="agent-badge">
+        🤖 {{ project.agent.name }} {{ project.agent.version }}
+      </span>
+      <span class="model-badge">
+        {{ project.agent.model }}
+      </span>
+    </div>
+
     <div class="project-content" v-show="isExpanded">
       <div class="timeline">
         <div class="timeline-header">
@@ -203,6 +212,31 @@ const difficultyColors = {
   color: var(--color-text-light);
   font-size: 0.95rem;
   line-height: 1.6;
+}
+
+.project-agent-info {
+  padding: 0 var(--spacing-lg) var(--spacing-md);
+  display: flex;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+.agent-badge,
+.model-badge {
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.agent-badge {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.model-badge {
+  background: #f3e5f5;
+  color: #7b1fa2;
 }
 
 .project-content {

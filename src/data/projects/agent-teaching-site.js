@@ -5,6 +5,11 @@ export const projects = [
     description: '完整记录如何通过与 Agent 的多轮交互，从零开始构建一个 Vue 3 前端项目。包含需求讨论、技术选型、功能开发、问题修复等全过程。',
     tags: ['Vue 3', '前端', '教学网站', 'Agent 协作'],
     difficulty: 'intermediate',
+    agent: {
+      name: 'Claude Code',
+      version: '2.1.126',
+      model: 'mimo-v2.5-pro'
+    },
     steps: [
       {
         title: '提出初始需求',
