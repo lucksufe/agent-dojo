@@ -38,7 +38,7 @@ export const steps = [
       <p><strong>国内用户建议：</strong>由于网络原因，直接安装可能很慢。建议先切换到淘宝镜像源：</p>
     `,
     code: 'npm config set registry https://registry.npmmirror.com/\nnpm install -g @anthropic-ai/claude-code',
-    tip: '如果遇到权限问题，可以尝试在命令前加上 sudo。安装完成后可用 npm config get registry 确认镜像源已生效。',
+    tip: 'Linux/macOS 用户如遇到权限问题，可在命令前加 sudo。安装完成后可用 npm config get registry 确认镜像源已生效。',
     encouragement: '很好！CLI 工具已安装完成！'
   },
   {
