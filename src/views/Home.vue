@@ -59,7 +59,7 @@ const features = [
       </p>
       <p class="contribute-link">
         查看
-        <a href="https://github.com/lucksufe/agent-dojo" target="_blank">贡献指南</a>
+        <router-link to="/save-case">贡献指南</router-link>
         了解如何提交你的案例。
       </p>
     </section>

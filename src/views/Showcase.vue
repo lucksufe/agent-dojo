@@ -1,6 +1,9 @@
 <script setup>
+import { useRouter } from 'vue-router'
 import { projects } from '../data/projects/agent-teaching-site.js'
 import ProjectCard from '../components/showcase/ProjectCard.vue'
+
+const router = useRouter()
 </script>
 
 <template>
@@ -20,7 +23,7 @@ import ProjectCard from '../components/showcase/ProjectCard.vue'
         <strong>分享你的案例！</strong>
         <p>有自己的 Agent 使用经验？欢迎通过 GitHub PR 提交你的案例，帮助更多人学习。</p>
       </div>
-      <a href="https://github.com/lucksufe/agent-dojo" target="_blank" class="contribute-btn">提交案例</a>
+      <router-link to="/save-case" class="contribute-btn">提交案例</router-link>
     </div>
 
     <div class="projects-list">
