@@ -448,7 +448,7 @@ git push origin add-my-case
 }
 
 .md-preview :deep(pre) {
-  background: var(--color-bg);
+  background: #f5f5f5;
   padding: var(--spacing-md);
   border-radius: var(--radius-md);
   overflow-x: auto;
@@ -458,6 +458,7 @@ git push origin add-my-case
 .md-preview :deep(pre code) {
   background: none;
   padding: 0;
+  color: #333;
 }
 
 .md-preview :deep(strong) {
