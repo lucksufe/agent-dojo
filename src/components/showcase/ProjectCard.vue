@@ -376,4 +376,77 @@ const difficultyColors = {
   color: var(--color-primary);
   margin-right: var(--spacing-sm);
 }
+
+@media (max-width: 768px) {
+  .project-header {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
+  }
+
+  .project-info {
+    width: 100%;
+  }
+
+  .project-title {
+    font-size: 1.1rem;
+  }
+
+  .project-meta {
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    gap: var(--spacing-sm);
+  }
+
+  .tags {
+    flex-wrap: wrap;
+  }
+
+  .expand-icon {
+    position: absolute;
+    right: var(--spacing-md);
+    top: var(--spacing-md);
+  }
+
+  .project-header {
+    position: relative;
+  }
+
+  .project-description {
+    padding: 0 var(--spacing-md) var(--spacing-md);
+    font-size: 0.9rem;
+  }
+
+  .project-content {
+    padding: 0 var(--spacing-md) var(--spacing-md);
+  }
+
+  .timeline-header {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    align-items: flex-start;
+  }
+
+  .step-nav {
+    width: 100%;
+  }
+
+  .nav-btn {
+    flex: 1;
+  }
+
+  .step-card {
+    padding: var(--spacing-md);
+  }
+
+  .message {
+    padding: var(--spacing-sm);
+  }
+
+  .step-code pre {
+    font-size: 0.8rem;
+    padding: var(--spacing-sm);
+  }
+}
 </style>
