@@ -52,6 +52,10 @@ const closeSidebar = () => {
 }
 
 @media (max-width: 768px) {
+  .app {
+    overflow-x: hidden;
+  }
+
   .main-content {
     padding: var(--spacing-md);
   }

@@ -229,6 +229,17 @@ const toggleExpand = () => {
   font-size: 0.9rem;
 }
 
+.step-code pre code {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+@media (max-width: 768px) {
+  .step-code pre {
+    overflow-x: hidden;
+  }
+}
+
 .step-tip {
   margin-top: var(--spacing-md);
   padding: var(--spacing-sm) var(--spacing-md);
