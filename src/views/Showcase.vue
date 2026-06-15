@@ -1,9 +1,13 @@
 <script setup>
 import { useRouter } from 'vue-router'
-import { projects } from '../data/projects/agent-teaching-site.js'
 import ProjectCard from '../components/showcase/ProjectCard.vue'
 
 const router = useRouter()
+
+const projectModules = import.meta.glob('../data/projects/*.js', { eager: true })
+const projects = Object.values(projectModules)
+  .flatMap(mod => mod.projects || [])
+  .filter(p => p && p.title && Array.isArray(p.steps) && p.steps.length > 0)
 </script>
 
 <template>
