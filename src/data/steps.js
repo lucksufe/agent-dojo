@@ -63,7 +63,7 @@ export const steps = [
           <li>🌍 <strong>外区用户</strong>：邀请码 <code>PD3MKZ</code>，可获得 <strong>$2</strong> 使用额度</li>
         </ul>
         <ol>
-          <li>访问 <a href="https://platform.mimoxiaomi.com" target="_blank">小米 MiMo 开放平台</a></li>
+          <li>访问 <a href="https://platform.xiaomimimo.com" target="_blank">小米 MiMo 开放平台</a></li>
           <li>注册并登录账号，进入控制台后在左下角填写邀请码</li>
           <li>获取 API Key</li>
         </ol>
