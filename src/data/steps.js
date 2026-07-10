@@ -56,11 +56,11 @@ export const steps = [
       </div>
 
       <div id="panel-mimo" class="provider-panel">
-        <p class="provider-recommend">🌟 推荐：小米自研大模型，性价比高</p>
+        <p class="provider-recommend">推荐：小米自研大模型，性价比高</p>
         <p><strong>使用邀请码注册可获得免费额度：</strong></p>
         <ul>
-          <li>🇨🇳 <strong>国区用户</strong>：邀请码 <code>7WF5HB</code>，可获得 <strong>10 元</strong>使用额度，有效期 40 天</li>
-          <li>🌍 <strong>外区用户</strong>：邀请码 <code>PD3MKZ</code>，可获得 <strong>$2</strong> 使用额度</li>
+          <li><strong>国区用户</strong>：邀请码 <code>7WF5HB</code>，可获得 <strong>10 元</strong>使用额度（有效期 40 天）</li>
+          <li><strong>外区用户</strong>：邀请码 <code>PD3MKZ</code>，可获得 <strong>$2</strong> 使用额度（有效期 40 天）</li>
         </ul>
         <ol>
           <li>访问 <a href="https://platform.xiaomimimo.com" target="_blank">小米 MiMo 开放平台</a></li>
