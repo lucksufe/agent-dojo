@@ -50,26 +50,31 @@ export const steps = [
       <p>API Key 是访问 AI 服务的凭证。选择一个你方便获取的服务商：</p>
 
       <div class="provider-tabs">
-        <button class="provider-tab active" onclick="this.parentElement.querySelectorAll('.provider-tab').forEach(t=>t.classList.remove('active'));this.classList.add('active');document.querySelectorAll('.provider-panel').forEach(p=>p.style.display='none');document.getElementById('panel-deepseek').style.display='block';">DeepSeek</button>
-        <button class="provider-tab" onclick="this.parentElement.querySelectorAll('.provider-tab').forEach(t=>t.classList.remove('active'));this.classList.add('active');document.querySelectorAll('.provider-panel').forEach(p=>p.style.display='none');document.getElementById('panel-mimo').style.display='block';">小米 MiMo</button>
+        <button class="provider-tab active" onclick="this.parentElement.querySelectorAll('.provider-tab').forEach(t=>t.classList.remove('active'));this.classList.add('active');document.querySelectorAll('.provider-panel').forEach(p=>p.style.display='none');document.getElementById('panel-mimo').style.display='block';">小米 MiMo</button>
+        <button class="provider-tab" onclick="this.parentElement.querySelectorAll('.provider-tab').forEach(t=>t.classList.remove('active'));this.classList.add('active');document.querySelectorAll('.provider-panel').forEach(p=>p.style.display='none');document.getElementById('panel-deepseek').style.display='block';">DeepSeek</button>
         <button class="provider-tab" onclick="this.parentElement.querySelectorAll('.provider-tab').forEach(t=>t.classList.remove('active'));this.classList.add('active');document.querySelectorAll('.provider-panel').forEach(p=>p.style.display='none');document.getElementById('panel-claude').style.display='block';">Claude</button>
       </div>
 
-      <div id="panel-deepseek" class="provider-panel">
-        <p class="provider-recommend">🌟 推荐：国内访问稳定，性价比高</p>
+      <div id="panel-mimo" class="provider-panel">
+        <p class="provider-recommend">🌟 推荐：小米自研大模型，性价比高</p>
+        <p><strong>使用邀请码注册可获得免费额度：</strong></p>
+        <ul>
+          <li>🇨🇳 <strong>国区用户</strong>：邀请码 <code>7WF5HB</code>，可获得 <strong>10 元</strong>使用额度，有效期 40 天</li>
+          <li>🌍 <strong>外区用户</strong>：邀请码 <code>PD3MKZ</code>，可获得 <strong>$2</strong> 使用额度</li>
+        </ul>
+        <ol>
+          <li>访问 <a href="https://platform.mimo.xiaomi.com" target="_blank">小米 MiMo 开放平台</a></li>
+          <li>注册并登录账号（注册时填写上述邀请码）</li>
+          <li>获取 API Key</li>
+        </ol>
+      </div>
+
+      <div id="panel-deepseek" class="provider-panel" style="display:none;">
+        <p>国内访问稳定，性价比高</p>
         <ol>
           <li>访问 <a href="https://platform.deepseek.com" target="_blank">DeepSeek 开放平台</a></li>
           <li>注册并登录账号</li>
           <li>在 API Keys 页面创建密钥</li>
-        </ol>
-      </div>
-
-      <div id="panel-mimo" class="provider-panel" style="display:none;">
-        <p>小米自研大模型</p>
-        <ol>
-          <li>访问 <a href="https://platform.mimo.xiaomi.com" target="_blank">小米 MiMo 开放平台</a></li>
-          <li>注册并登录账号</li>
-          <li>获取 API Key</li>
         </ol>
       </div>
 
@@ -92,12 +97,12 @@ export const steps = [
 
       <div class="env-section">
         <div class="provider-tabs">
-          <button class="provider-tab active" onclick="this.parentElement.querySelectorAll('.provider-tab').forEach(t=>t.classList.remove('active'));this.classList.add('active');document.querySelectorAll('.env-provider').forEach(p=>p.style.display='none');document.getElementById('env-deepseek').style.display='block';">DeepSeek</button>
-          <button class="provider-tab" onclick="this.parentElement.querySelectorAll('.provider-tab').forEach(t=>t.classList.remove('active'));this.classList.add('active');document.querySelectorAll('.env-provider').forEach(p=>p.style.display='none');document.getElementById('env-mimo').style.display='block';">小米 MiMo</button>
+          <button class="provider-tab active" onclick="this.parentElement.querySelectorAll('.provider-tab').forEach(t=>t.classList.remove('active'));this.classList.add('active');document.querySelectorAll('.env-provider').forEach(p=>p.style.display='none');document.getElementById('env-mimo').style.display='block';">小米 MiMo</button>
+          <button class="provider-tab" onclick="this.parentElement.querySelectorAll('.provider-tab').forEach(t=>t.classList.remove('active'));this.classList.add('active');document.querySelectorAll('.env-provider').forEach(p=>p.style.display='none');document.getElementById('env-deepseek').style.display='block';">DeepSeek</button>
           <button class="provider-tab" onclick="this.parentElement.querySelectorAll('.provider-tab').forEach(t=>t.classList.remove('active'));this.classList.add('active');document.querySelectorAll('.env-provider').forEach(p=>p.style.display='none');document.getElementById('env-claude').style.display='block';">Claude</button>
         </div>
 
-        <div id="env-deepseek" class="env-provider">
+        <div id="env-deepseek" class="env-provider" style="display:none;">
           <div class="os-tabs">
             <button class="os-tab active" onclick="this.parentElement.querySelectorAll('.os-tab').forEach(t=>t.classList.remove('active'));this.classList.add('active');this.closest('.env-provider').querySelector('.env-code-windows').style.display='block';this.closest('.env-provider').querySelector('.env-code-linux').style.display='none';">Windows</button>
             <button class="os-tab" onclick="this.parentElement.querySelectorAll('.os-tab').forEach(t=>t.classList.remove('active'));this.classList.add('active');this.closest('.env-provider').querySelector('.env-code-windows').style.display='none';this.closest('.env-provider').querySelector('.env-code-linux').style.display='block';">Linux / macOS</button>
@@ -128,7 +133,7 @@ export ANTHROPIC_MODEL=deepseek-v4-pro</code></pre>
           </div>
         </div>
 
-        <div id="env-mimo" class="env-provider" style="display:none;">
+        <div id="env-mimo" class="env-provider">
           <div class="os-tabs">
             <button class="os-tab active" onclick="this.parentElement.querySelectorAll('.os-tab').forEach(t=>t.classList.remove('active'));this.classList.add('active');this.closest('.env-provider').querySelector('.env-code-windows').style.display='block';this.closest('.env-provider').querySelector('.env-code-linux').style.display='none';">Windows</button>
             <button class="os-tab" onclick="this.parentElement.querySelectorAll('.os-tab').forEach(t=>t.classList.remove('active'));this.classList.add('active');this.closest('.env-provider').querySelector('.env-code-windows').style.display='none';this.closest('.env-provider').querySelector('.env-code-linux').style.display='block';">Linux / macOS</button>
