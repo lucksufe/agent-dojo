@@ -151,7 +151,7 @@ export ANTHROPIC_MODEL="deepseek-v4-pro"</code></pre>
 变量值: your-mimo-api-key</code></pre>
             <p><strong>第 2 个变量：</strong></p>
             <pre><code>变量名: ANTHROPIC_BASE_URL
-变量值: https://api.mimo.xiaomi.com/anthropic</code></pre>
+变量值: https://api.xiaomimimo.com/anthropic</code></pre>
             <p><strong>第 3 个变量：</strong></p>
             <pre><code>变量名: ANTHROPIC_MODEL
 变量值: mimo-v2.5-pro</code></pre>
@@ -159,7 +159,7 @@ export ANTHROPIC_MODEL="deepseek-v4-pro"</code></pre>
           <div class="env-code-linux" style="display:none;">
             <p><strong>Linux / macOS 终端命令：</strong></p>
             <pre><code>export ANTHROPIC_AUTH_TOKEN="your-mimo-api-key"
-export ANTHROPIC_BASE_URL="https://api.mimo.xiaomi.com/anthropic"
+export ANTHROPIC_BASE_URL="https://api.xiaomimimo.com/anthropic"
 export ANTHROPIC_MODEL="mimo-v2.5-pro"</code></pre>
           </div>
         </div>
