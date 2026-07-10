@@ -117,7 +117,7 @@ export const steps = [
             </ol>
             <p><strong>第 1 个变量：</strong></p>
             <pre><code>变量名: ANTHROPIC_AUTH_TOKEN
-变量值: your-deepseek-api-key</code></pre>
+变量值: your-deepseek-api-key （请替换为上一步获取的真实 API Key）</code></pre>
             <p><strong>第 2 个变量：</strong></p>
             <pre><code>变量名: ANTHROPIC_BASE_URL
 变量值: https://api.deepseek.com/anthropic</code></pre>
@@ -127,7 +127,7 @@ export const steps = [
           </div>
           <div class="env-code-linux" style="display:none;">
             <p><strong>Linux / macOS 终端命令：</strong></p>
-            <pre><code>export ANTHROPIC_AUTH_TOKEN="your-deepseek-api-key"
+            <pre><code>export ANTHROPIC_AUTH_TOKEN="your-deepseek-api-key"  # 请替换为上一步获取的真实 API Key
 export ANTHROPIC_BASE_URL="https://api.deepseek.com/anthropic"
 export ANTHROPIC_MODEL="deepseek-v4-pro"</code></pre>
           </div>
@@ -148,7 +148,7 @@ export ANTHROPIC_MODEL="deepseek-v4-pro"</code></pre>
             </ol>
             <p><strong>第 1 个变量：</strong></p>
             <pre><code>变量名: ANTHROPIC_AUTH_TOKEN
-变量值: your-mimo-api-key</code></pre>
+变量值: your-mimo-api-key （请替换为上一步获取的真实 API Key）</code></pre>
             <p><strong>第 2 个变量：</strong></p>
             <pre><code>变量名: ANTHROPIC_BASE_URL
 变量值: https://api.xiaomimimo.com/anthropic</code></pre>
@@ -158,7 +158,7 @@ export ANTHROPIC_MODEL="deepseek-v4-pro"</code></pre>
           </div>
           <div class="env-code-linux" style="display:none;">
             <p><strong>Linux / macOS 终端命令：</strong></p>
-            <pre><code>export ANTHROPIC_AUTH_TOKEN="your-mimo-api-key"
+            <pre><code>export ANTHROPIC_AUTH_TOKEN="your-mimo-api-key"  # 请替换为上一步获取的真实 API Key
 export ANTHROPIC_BASE_URL="https://api.xiaomimimo.com/anthropic"
 export ANTHROPIC_MODEL="mimo-v2.5-pro"</code></pre>
           </div>
@@ -178,11 +178,11 @@ export ANTHROPIC_MODEL="mimo-v2.5-pro"</code></pre>
               <li>在"用户变量"区域，点击"新建"，添加以下变量：</li>
             </ol>
             <pre><code>变量名: ANTHROPIC_API_KEY
-变量值: your-claude-api-key</code></pre>
+变量值: your-claude-api-key （请替换为上一步获取的真实 API Key）</code></pre>
           </div>
           <div class="env-code-linux" style="display:none;">
             <p><strong>Linux / macOS 终端命令：</strong></p>
-            <pre><code>export ANTHROPIC_API_KEY="your-claude-api-key"</code></pre>
+            <pre><code>export ANTHROPIC_API_KEY="your-claude-api-key"  # 请替换为上一步获取的真实 API Key</code></pre>
           </div>
         </div>
       </div>
