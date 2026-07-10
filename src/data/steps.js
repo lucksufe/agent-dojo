@@ -127,9 +127,9 @@ export const steps = [
           </div>
           <div class="env-code-linux" style="display:none;">
             <p><strong>Linux / macOS 终端命令：</strong></p>
-            <pre><code>export ANTHROPIC_AUTH_TOKEN=your-deepseek-api-key
-export ANTHROPIC_BASE_URL=https://api.deepseek.com/anthropic
-export ANTHROPIC_MODEL=deepseek-v4-pro</code></pre>
+            <pre><code>export ANTHROPIC_AUTH_TOKEN="your-deepseek-api-key"
+export ANTHROPIC_BASE_URL="https://api.deepseek.com/anthropic"
+export ANTHROPIC_MODEL="deepseek-v4-pro"</code></pre>
           </div>
         </div>
 
@@ -182,7 +182,7 @@ export ANTHROPIC_MODEL="mimo-v2.5-pro"</code></pre>
           </div>
           <div class="env-code-linux" style="display:none;">
             <p><strong>Linux / macOS 终端命令：</strong></p>
-            <pre><code>export ANTHROPIC_API_KEY=your-claude-api-key</code></pre>
+            <pre><code>export ANTHROPIC_API_KEY="your-claude-api-key"</code></pre>
           </div>
         </div>
       </div>
