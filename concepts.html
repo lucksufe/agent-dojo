@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>基本概念 · 用 Agent 写脚本</title>
+<meta name="description" content="大模型、提示词、上下文、Token、Agent、工具调用、权限确认——用生活化的比喻讲清楚。">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="concepts">
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">A</span>
+      <span class="brand-text">用 Agent 写脚本</span>
+    </a>
+    <nav class="nav">
+      <a href="index.html" data-nav="home">首页</a>
+      <a href="concepts.html" data-nav="concepts">基本概念</a>
+      <a href="setup.html" data-nav="setup">安装与配置</a>
+      <a href="prompt.html" data-nav="prompt">如何提需求</a>
+      <a href="practice.html" data-nav="practice">实战案例</a>
+      <a href="faq.html" data-nav="faq">常见问题</a>
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+
+  <aside class="side">
+    <h4>本章目录</h4>
+    <a href="#llm">大模型：一个接话高手</a>
+    <a href="#prompt">提示词：你写的需求单</a>
+    <a href="#context">上下文：它的短期记忆</a>
+    <a href="#token">Token：长度与费用</a>
+    <a href="#agent">Agent：会动手的 AI</a>
+    <a href="#tools">工具调用：手和脚</a>
+    <a href="#workspace">工作区：活动范围</a>
+    <a href="#permission">权限确认：别乱点允许</a>
+    <a href="#hallucination">幻觉：它也会瞎编</a>
+    <a href="#model">模型怎么选</a>
+  </aside>
+
+  <main>
+    <div class="page-head">
+      <span class="crumb">第 1 章</span>
+      <h1>基本概念</h1>
+      <p>不用记术语。下面每个词，都配了一个生活里的类比；看懂这 10 个词，后面配置和提问就都不难了。</p>
+    </div>
+
+    <h2 id="llm">大模型：一个读过很多书的「接话高手」</h2>
+    <p>大模型（LLM，Large Language Model）的本质工作只有一件事：<strong>根据前面的文字，猜接下来最该出现什么字</strong>。它读过的资料足够多，所以猜得足够准，准到能写邮件、写总结、写代码。</p>
+    <p>理解这一点，你就知道它的两个特点：</p>
+    <ul>
+      <li><strong>它很会「按套路输出」。</strong>你给的例子越清楚，它模仿得越准。这就是为什么「给它看一个样例」特别有效。</li>
+      <li><strong>它不主动查证。</strong>不联网、不读文件的时候，它只能凭记忆说话，记错了也会很自信地编下去。</li>
+    </ul>
+
+    <div class="callout tip">
+      <span class="c-ico">✓</span>
+      <div><p>所以不要把它当「搜索引擎」，把它当一个<strong>刚入职、能力很强、但完全不了解你公司情况的实习生</strong>：你需要交代背景、给出样例、说明验收标准。</p></div>
+    </div>
+
+    <h2 id="prompt">提示词：你写给它的需求单</h2>
+    <p>提示词（Prompt）就是你输入的那段话。它不是「咒语」，而更像一张<strong>工单</strong>：写清楚要做什么、交给谁、交付成什么样，执行的人才不会跑偏。</p>
+    <p>同一个任务，三种写法，结果差别很大：</p>
+    <div class="compare">
+      <div class="bad">
+        <h4>不清楚的写法</h4>
+        <p>「帮我整理一下文件。」</p>
+      </div>
+      <div class="good">
+        <h4>清楚的写法</h4>
+        <p>「把 D:\下载 里所有 .jpg 按拍摄月份分到 2026-01、2026-02 这样的子文件夹，原文件移动不是复制。」</p>
+      </div>
+    </div>
+    <p>第 3 章会把「怎么写」拆成可以照着填的模板。</p>
+
+    <h2 id="context">上下文：它当前「记得住」的范围</h2>
+    <p>上下文（Context）指的是这一次对话里，模型能同时「看到」的全部内容：你说过的话、它读进来的文件、它自己之前的回答。</p>
+    <p>它有几条实用含义：</p>
+    <ul>
+      <li><strong>它是有限的。</strong>内容太多会超出上限，最早的对话会被挤掉——这就是为什么长对话聊到后面，它开始「忘了前面说过什么」。</li>
+      <li><strong>它会一直带着。</strong>你在同一段对话里改来改去，前面的错误理解也会被它一起记住。发现跑偏了，<strong>开新对话重新交代</strong>比反复纠正更快。</li>
+      <li><strong>文件内容也算。</strong>让它读一个 200 页的文档，会占掉大量上下文，反而让它抓不住重点。能只给相关片段就别给全文。</li>
+    </ul>
+
+    <h2 id="token">Token：长度和费用的计量单位</h2>
+    <p>模型不是按「字」处理文本，而是把文字切成一个个小片段，叫 Token。它是上下文长度的单位，也是计费的单位。</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>文字</th><th>大致 Token 数</th><th>说明</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1 个汉字</td><td>约 1 个</td><td>不同模型略有差异，粗略按 1:1 估算即可</td></tr>
+          <tr><td>1 个英文单词</td><td>约 1.3 个</td><td>长单词会被切成多段</td></tr>
+          <tr><td>一页 A4 中文文档</td><td>约 800–1200 个</td><td>约 1000 字左右</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>一次任务的消耗 = <strong>输入</strong>（你的话 + 读进来的文件）+ <strong>输出</strong>（它写的内容）。所以「让它读整个文件夹」比「只读一个文件」贵得多，也慢得多。日常小脚本的消耗通常很小，不必过于担心。</p>
+
+    <h2 id="agent">Agent：会自己动手的 AI</h2>
+    <p>普通聊天 AI 只负责「说」：给你一段代码，你自己复制、自己保存、自己运行、自己看报错。</p>
+    <p><strong>Agent（智能体）多了一双手</strong>：它能直接在你打开的文件夹里读文件、写脚本、开终端运行、看到报错后自己再改。你只负责提要求和验收。</p>
+
+    <figure class="figure">
+      <svg viewBox="0 0 880 300" role="img" aria-label="Agent 工作流程图：你提出需求，Agent 用大模型思考、用工具动手，在你的工作区里产出结果">
+        <defs>
+          <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0 0 L10 5 L0 10 z" fill="#a8b0bd"/>
+          </marker>
+        </defs>
+
+        <!-- 你 -->
+        <rect x="16" y="108" width="132" height="84" rx="14" fill="#ffffff" stroke="#e0e4ea"/>
+        <text x="82" y="143" text-anchor="middle" font-size="15" font-weight="700" fill="#16191d">你</text>
+        <text x="82" y="167" text-anchor="middle" font-size="12.5" fill="#6b7480">用中文说需求</text>
+
+        <!-- 箭头 -->
+        <path d="M148 150 H 214" stroke="#c8ced8" stroke-width="1.6" fill="none" marker-end="url(#ar)"/>
+        <text x="181" y="139" text-anchor="middle" font-size="11.5" fill="#858d97">需求</text>
+
+        <!-- Agent 大框 -->
+        <rect x="216" y="52" width="424" height="196" rx="18" fill="#f7f9ff" stroke="#cfd9f8" stroke-dasharray="5 5"/>
+        <text x="428" y="78" text-anchor="middle" font-size="12" font-weight="700" fill="#3a63f0" letter-spacing="1">AGENT</text>
+
+        <!-- 大脑 -->
+        <rect x="242" y="92" width="372" height="60" rx="11" fill="#ffffff" stroke="#dbe2f5"/>
+        <text x="262" y="118" font-size="13.5" font-weight="650" fill="#16191d">大脑：大模型</text>
+        <text x="262" y="138" font-size="12" fill="#6b7480">理解你的话 · 规划步骤 · 写代码 · 改错</text>
+
+        <!-- 手脚 -->
+        <rect x="242" y="166" width="372" height="60" rx="11" fill="#ffffff" stroke="#dbe2f5"/>
+        <text x="262" y="192" font-size="13.5" font-weight="650" fill="#16191d">手脚：工具调用</text>
+        <text x="262" y="212" font-size="12" fill="#6b7480">读文件 · 写脚本 · 运行命令 · 看报错</text>
+
+        <!-- 箭头 -->
+        <path d="M640 150 H 700" stroke="#c8ced8" stroke-width="1.6" fill="none" marker-end="url(#ar)"/>
+        <text x="670" y="139" text-anchor="middle" font-size="11.5" fill="#858d97">执行</text>
+
+        <!-- 结果 -->
+        <rect x="702" y="108" width="162" height="84" rx="14" fill="#ffffff" stroke="#e0e4ea"/>
+        <text x="783" y="143" text-anchor="middle" font-size="15" font-weight="700" fill="#16191d">你的电脑</text>
+        <text x="783" y="167" text-anchor="middle" font-size="12.5" fill="#6b7480">生成脚本 · 输出结果</text>
+
+        <!-- 底部说明 -->
+        <text x="440" y="278" text-anchor="middle" font-size="12" fill="#858d97">每一步写入或运行，都会先弹出确认；你随时可以喊停</text>
+      </svg>
+      <figcaption>Agent = 大模型（会想）+ 工具（会做）+ 工作区（能碰到的范围）</figcaption>
+    </figure>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th style="width:22%">对比项</th><th>普通聊天 AI</th><th>Agent</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>输出</td><td>一段文字或代码</td><td>直接建好的文件和可运行的结果</td></tr>
+          <tr><td>读文件</td><td>需要你复制粘贴给它</td><td>自己打开、自己读</td></tr>
+          <tr><td>出错</td><td>你贴回报错，它再改</td><td>自己执行、自己看到报错、自己修</td></tr>
+          <tr><td>适合</td><td>问知识、写文案</td><td>做工具、处理文件、跑脚本</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="tools">工具调用：Agent 的「手和脚」</h2>
+    <p>大模型本身只会输出文字。要把文字变成动作，得靠<strong>工具（Tools）</strong>。你看到的「它正在读取文件」「它正在运行命令」，就是它在调用工具。</p>
+    <p>常见的工具就这几类：</p>
+    <ul>
+      <li><strong>读文件 / 搜索文件</strong>——看看你工作区里有什么、内容是什么。</li>
+      <li><strong>写文件 / 改文件</strong>——把脚本保存成 <code>.py</code>，或修改已有文件。</li>
+      <li><strong>运行终端命令</strong>——执行 Python、安装依赖、跑测试。</li>
+      <li><strong>联网搜索</strong>（部分工具支持）——查最新文档，弥补「记不准」的问题。</li>
+    </ul>
+
+    <h2 id="workspace">工作区：它能碰到的范围</h2>
+    <p>工作区（Workspace）就是你在 Trae 里<strong>打开的那个文件夹</strong>。Agent 默认只看得到这里面的内容，看不到你电脑上的其他位置。</p>
+    <p>这个设计有两个好处：一是它不会被无关文件干扰；二是它不太容易误伤别的地方。所以正确的做法是：<strong>为每个任务单独开一个文件夹</strong>，把要处理的文件放进去，再让 Trae 打开这个文件夹。</p>
+
+    <div class="callout warn">
+      <span class="c-ico">!</span>
+      <div><p>不要一上来就打开「C 盘」或「桌面」这种包含大量文件的位置。Agent 扫描目录会变慢，也更容易误改无关文件。</p></div>
+    </div>
+
+    <h2 id="permission">权限确认：为什么它老是问我</h2>
+    <p>当 Agent 要写文件、改文件、运行命令时，通常会先弹出一句「是否允许」。这不是它卡住了，而是<strong>安全刹车</strong>。</p>
+    <p>正确的态度是：</p>
+    <ul>
+      <li><strong>看它要做什么</strong>，特别是命令里有没有删除、覆盖、移动到工作区外。</li>
+      <li><strong>批量操作前先拒绝一次</strong>，让它改成「先试 3 个」。第 3 章会教你怎么说。</li>
+      <li>不要图省事一路点「全部允许」——那等于把刹车拆了。</li>
+    </ul>
+
+    <h2 id="hallucination">幻觉：它也会一本正经地瞎编</h2>
+    <p>「幻觉」是指模型编造不存在的东西：一个不存在的函数、一个不存在的文件路径、一个记错的参数名。它说得很自信，但就是错的。</p>
+    <p>对付幻觉最有效的办法不是「多想」，而是<strong>让它跑一遍</strong>。代码跑不通会立刻报错，报错信息就是事实。</p>
+
+    <div class="callout info">
+      <span class="c-ico">i</span>
+      <div><p><strong>判断标准只有一条：能跑通、结果对。</strong>不要因为代码「看起来很像那么回事」就放心，也不要因为它报错了就觉得它不行——把完整报错贴回去，它通常能自己修好。</p></div>
+    </div>
+
+    <h2 id="model">模型怎么选</h2>
+    <p>模型是 Agent 的「大脑」。同一个 Trae，可以切换不同模型。简单说：</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th style="width:24%">类型</th><th>适合做什么</th><th>特点</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="tag">代码 / 主力模型</span></td>
+            <td>写脚本、改代码、处理多步骤任务</td>
+            <td>能力强、速度稍慢、消耗略高。做正事就用它</td>
+          </tr>
+          <tr>
+            <td><span class="tag gray">快速 / 轻量模型</span></td>
+            <td>简单问答、改错别字、解释一小段代码</td>
+            <td>响应快、成本低，复杂任务容易兜不住</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>挑选时优先看<strong>代码能力</strong>，而不是「聊天聊得顺不顺」。很多模型聊得很好，但写代码时容易漏边界情况。不确定就用默认推荐的那一个，先跑通再说。</p>
+
+    <div class="pager">
+      <a href="index.html"><span class="p-label">← 上一章</span><span class="p-title">首页</span></a>
+      <a class="next" href="setup.html"><span class="p-label">下一章 →</span><span class="p-title">安装与配置（含模型 Key）</span></a>
+    </div>
+  </main>
+
+</div>
+
+<footer class="site-foot">
+  <p>用 Agent 写脚本 · 内部培训材料</p>
+  <p>示例以 Trae 客户端为准，界面可能随版本更新略有差异。</p>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,14 +1,162 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Agent Dojo - Agent 使用教学与实战分享</title>
-    <script defer src="https://www.ps6.fun/umami/script.js" data-website-id="f485a3a9-86d5-4470-b7da-e53f7f3af6d2"></script>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>用 Agent 写脚本 · 普通职员上手指南</title>
+<meta name="description" content="以 Trae 为例，面向普通职员的 AI Agent 使用指南：基本概念、模型 Key 配置、如何描述需求、实战脚本案例。">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="home">
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">A</span>
+      <span class="brand-text">用 Agent 写脚本</span>
+    </a>
+    <nav class="nav">
+      <a href="index.html" data-nav="home">首页</a>
+      <a href="concepts.html" data-nav="concepts">基本概念</a>
+      <a href="setup.html" data-nav="setup">安装与配置</a>
+      <a href="prompt.html" data-nav="prompt">如何提需求</a>
+      <a href="practice.html" data-nav="practice">实战案例</a>
+      <a href="faq.html" data-nav="faq">常见问题</a>
+    </nav>
+  </div>
+</header>
+
+<div class="layout single">
+<main>
+
+  <section class="hero">
+    <span class="eyebrow"><span class="dot"></span>面向普通职员 · 零基础可读</span>
+    <h1>用 Agent 写脚本，<br>把<em>重复劳动</em>交给 AI</h1>
+    <p>你不需要会写代码。这份指南用最直白的话讲清楚：Agent 是什么、怎么填自己的模型 Key、怎么把「我想要……」说成 AI 能听懂的需求，并附上 4 个可以直接照抄的脚本案例。</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="concepts.html">从基本概念开始</a>
+      <a class="btn btn-ghost" href="practice.html">直接看实战案例</a>
+    </div>
+    <div class="hero-meta">
+      <span><b>6</b> 个章节</span>
+      <span><b>约 30</b> 分钟读完</span>
+      <span>适用：行政 · 财务 · 运营 · 人事 · 销售支持</span>
+    </div>
+  </section>
+
+  <hr>
+
+  <h2><span class="num">01</span>这些事，可能正在消耗你</h2>
+  <p>它们有个共同点：规则明确、重复、每次都要花十几分钟到一整天——但又不值得专门找 IT 排期开发。</p>
+
+  <div class="grid">
+    <div class="card">
+      <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
+      <h4>文件批量重命名</h4>
+      <p>下载了一堆命名混乱的附件，要统一加日期、删掉「最终版」「副本」这类词。</p>
+    </div>
+    <div class="card">
+      <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 10v10M15 10v10"/></svg></div>
+      <h4>多张表格合并</h4>
+      <p>12 个月的分表、20 个门店的日报，要合成一张总表再做透视。</p>
+    </div>
+    <div class="card">
+      <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg></div>
+      <h4>文档信息提取</h4>
+      <p>几十份合同或申请单，要抄出编号、金额、日期，登进 Excel。</p>
+    </div>
+    <div class="card">
+      <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
+      <h4>图片批量处理</h4>
+      <p>几百张商品图要统一压缩到指定尺寸，还要分文件夹存放。</p>
+    </div>
+    <div class="card">
+      <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 3v6h-6"/></svg></div>
+      <h4>格式来回转换</h4>
+      <p>CSV 转 Excel、Word 转文本、PDF 拆页，一次几十个文件。</p>
+    </div>
+    <div class="card">
+      <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+      <h4>定时整理归档</h4>
+      <p>每天把下载文件夹按类型、按月份自动归类，月底打包。</p>
+    </div>
+  </div>
+
+  <div class="callout info">
+    <span class="c-ico">i</span>
+    <div>
+      <p><strong>为什么以前做不了？</strong>这类需求的代码量往往只有几十行，找开发排期不划算，自己学编程又要几周。而 Agent 能把「说一句话」直接变成「可运行的脚本」，正好填上这个空档。</p>
+    </div>
+  </div>
+
+  <h2><span class="num">02</span>你要做的，只有三步</h2>
+
+  <div class="steps">
+    <div class="step">
+      <h3>装好工具，接上模型</h3>
+      <p>下载 Trae，登录后选一个模型。如果公司有指定的模型服务，或者免费额度不够用，就填入自己的 API Key。这一步只做一次。</p>
+    </div>
+    <div class="step">
+      <h3>把需求讲清楚</h3>
+      <p>告诉它：<strong>要什么结果、数据在哪、输出成什么样、特殊情况怎么处理</strong>。不用写代码，用你平时跟同事交代事情的方式说就行。</p>
+    </div>
+    <div class="step">
+      <h3>小范围试跑，再放开用</h3>
+      <p>让它先拿 3 个文件试，确认结果对，再处理全量。跑完抽查几条，没问题就存下来，下次双击运行。</p>
+    </div>
+  </div>
+
+  <h2><span class="num">03</span>这份指南怎么读</h2>
+  <p>按顺序读最顺；如果时间紧，也可以直接跳到你需要的那一章。</p>
+
+  <div class="grid grid-2">
+    <a class="card" href="concepts.html">
+      <span class="tag">第 1 章</span>
+      <h4 style="margin-top:10px">基本概念</h4>
+      <p>大模型、提示词、上下文、Token、Agent、工具调用、权限确认……用生活化的比喻一次讲明白。</p>
+    </a>
+    <a class="card" href="setup.html">
+      <span class="tag">第 2 章</span>
+      <h4 style="margin-top:10px">安装与配置</h4>
+      <p>下载 Trae、认识界面、切换模式，以及最重要的一节：<strong>怎么添加自己的模型 Key</strong>。</p>
+    </a>
+    <a class="card" href="prompt.html">
+      <span class="tag">第 3 章</span>
+      <h4 style="margin-top:10px">如何提需求</h4>
+      <p>「目标—输入—输出—规则—验收」五要素，配 3 组正反例和 10 句可复制的模板。</p>
+    </a>
+    <a class="card" href="practice.html">
+      <span class="tag">第 4 章</span>
+      <h4 style="margin-top:10px">实战案例</h4>
+      <p>批量重命名、合并 Excel、提取 Word 信息、压缩图片，每个都有可直接复制的需求原文。</p>
+    </a>
+    <a class="card" href="faq.html">
+      <span class="tag">第 5 章</span>
+      <h4 style="margin-top:10px">常见问题</h4>
+      <p>报错怎么办、改坏了文件怎么救、哪些数据不能发给 AI、免费额度用完了怎么办。</p>
+    </a>
+    <a class="card" href="faq.html#checklist">
+      <span class="tag gray">附　录</span>
+      <h4 style="margin-top:10px">上手检查清单</h4>
+      <p>动手前、运行前、分享前各看一遍的清单，避免踩坑。</p>
+    </a>
+  </div>
+
+  <div class="callout warn">
+    <span class="c-ico">!</span>
+    <div>
+      <p><strong>先说一句要紧的：</strong>AI 写的脚本 = 别人替你写的代码。会动文件、会跑命令，就一定会出错的可能。所以请始终遵守两条：<strong>先备份原始数据</strong>，<strong>先小批量试跑</strong>。第 5 章有完整的安全清单。</p>
+    </div>
+  </div>
+
+</main>
+</div>
+
+<footer class="site-foot">
+  <p>用 Agent 写脚本 · 内部培训材料</p>
+  <p>示例以 Trae 客户端为准，界面可能随版本更新略有差异。</p>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
 </html>

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>实战案例 · 用 Agent 写脚本</title>
+<meta name="description" content="四个可以直接照抄的脚本案例：批量重命名、合并 Excel、提取 Word 信息、批量压缩图片。">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="practice">
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">A</span>
+      <span class="brand-text">用 Agent 写脚本</span>
+    </a>
+    <nav class="nav">
+      <a href="index.html" data-nav="home">首页</a>
+      <a href="concepts.html" data-nav="concepts">基本概念</a>
+      <a href="setup.html" data-nav="setup">安装与配置</a>
+      <a href="prompt.html" data-nav="prompt">如何提需求</a>
+      <a href="practice.html" data-nav="practice">实战案例</a>
+      <a href="faq.html" data-nav="faq">常见问题</a>
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+
+  <aside class="side">
+    <h4>本章目录</h4>
+    <a href="#how-to-use">怎么用这一章</a>
+    <a href="#case-rename">案例 1：批量重命名</a>
+    <a href="#case-excel">案例 2：合并多个 Excel</a>
+    <a href="#case-word">案例 3：提取 Word 信息</a>
+    <a href="#case-image">案例 4：批量压缩图片</a>
+    <a href="#save">把脚本变成双击即用</a>
+    <a href="#next">下一步能做什么</a>
+  </aside>
+
+  <main>
+    <div class="page-head">
+      <span class="crumb">第 4 章</span>
+      <h1>实战案例</h1>
+      <p>四个真实场景，需求原文可以直接复制。把路径改成你自己的，就能跑。每个案例都标了「这个需求用到了第 3 章的哪些技巧」。</p>
+    </div>
+
+    <h2 id="how-to-use">怎么用这一章</h2>
+    <div class="steps">
+      <div class="step">
+        <h3>准备一个干净的文件夹</h3>
+        <p>新建文件夹，把要处理的文件<strong>复制</strong>进去（不是剪切）。原始数据永远留在原处。</p>
+      </div>
+      <div class="step">
+        <h3>在 Trae 里打开这个文件夹</h3>
+        <p>「打开文件夹」指向它，确认左侧文件列表能看到你的文件。</p>
+      </div>
+      <div class="step">
+        <h3>切到 Builder 模式，粘贴需求</h3>
+        <p>把下面的需求原文复制进对话框，<strong>先把里面的路径改成你自己的</strong>，再发送。</p>
+      </div>
+      <div class="step">
+        <h3>先空跑，确认后再执行</h3>
+        <p>案例里都写了「先打印、不要真的改」。等它把对照表列出来，你确认无误再让它动手。</p>
+      </div>
+    </div>
+
+    <div class="callout warn">
+      <span class="c-ico">!</span>
+      <div><p>下面的路径都是示例（如 <code>D:\工作\xx</code>）。直接复制的话，<strong>务必先改成你电脑上真实存在的路径</strong>，否则它第一句就会告诉你「找不到文件夹」。</p></div>
+    </div>
+
+    <h2 id="case-rename">案例 1：批量重命名文件</h2>
+
+    <div class="case">
+      <header>
+        <h3>把 200 个乱名文件整理成统一格式</h3>
+        <span class="case-meta">难度：入门 · 约 5 分钟</span>
+      </header>
+
+      <dl>
+        <dt>场景</dt>
+        <dd>从系统里导出的附件、从群里收来的资料，文件名里混着「最终版」「副本」「(1)」，前后还有空格。手动改 200 个不现实。</dd>
+
+        <dt>你需要准备</dt>
+        <dd>一个文件夹，把所有待改名的文件放进去。建议先复制一份做备份。</dd>
+      </dl>
+
+      <div class="copy">
+        <div class="copy-head"><span>把这段发给 Agent</span><button class="copy-btn" type="button">复制</button></div>
+        <pre>我有一个文件夹 D:\工作\2026项目资料，里面大约 200 个文件，命名比较乱。
+
+请帮我写一个 Python 脚本，做三件事：
+1. 去掉文件名开头和结尾的空格；
+2. 删掉文件名里的「最终版」「修改版」「副本」「(1)」这类字样；
+3. 在文件名最前面加上「2026_」。
+
+规则：
+- 先只打印出「原名 → 新名」的对照表，不要真的改；
+- 我确认之后，再执行真正的重命名；
+- 如果改名后出现重名，自动在后面加 _2、_3，绝对不要覆盖已有文件；
+- 不要改动文件夹里的子文件夹。
+
+最后请告诉我：一共多少文件、改了多少个、跳过多少个以及原因。</pre>
+      </div>
+
+      <dl>
+        <dt>预期结果</dt>
+        <dd>终端先输出一张对照表；你回复「可以」，它才会真正改。跑完会给一个统计。</dd>
+
+        <dt>这个需求用到的技巧</dt>
+        <dd>
+          <ul>
+            <li>给了<strong>具体路径</strong>和<strong>文件数量</strong>（输入要素）</li>
+            <li>用<strong>编号列出规则</strong>，一条一个动作</li>
+            <li><strong>空跑 + 确认</strong>，把风险降到最低</li>
+            <li>提前规定<strong>重名怎么办</strong>（边界情况）</li>
+            <li>明确了<strong>不碰子文件夹</strong>（负面约束）</li>
+          </ul>
+        </dd>
+
+        <dt>常见坑</dt>
+        <dd>如果文件名里有中文括号 <code>（）</code> 和英文括号 <code>()</code> 混用，第一版可能只处理了一种。发现漏了就补一句：「英文和中文括号都要处理」。</dd>
+      </dl>
+    </div>
+
+    <h2 id="case-excel">案例 2：合并多个 Excel</h2>
+
+    <div class="case">
+      <header>
+        <h3>12 个月的分表合成一张年度总表</h3>
+        <span class="case-meta">难度：入门 · 约 8 分钟</span>
+      </header>
+
+      <dl>
+        <dt>场景</dt>
+        <dd>每月一张表，列的顺序被不同同事改过，有的多一列备注。手工复制粘贴容易错位，而且三个月后就忘了自己怎么拼的。</dd>
+
+        <dt>你需要准备</dt>
+        <dd>一个文件夹放 12 个 <code>.xlsx</code>；<strong>每张表的第一行都是表头</strong>；提前看一眼列名是否基本一致。</dd>
+      </dl>
+
+      <div class="copy">
+        <div class="copy-head"><span>把这段发给 Agent</span><button class="copy-btn" type="button">复制</button></div>
+        <pre>D:\工作\月报 这个文件夹里有 12 个 Excel 文件，文件名是 1月.xlsx 到 12月.xlsx。
+每个文件第一行是表头，第一张工作表就是数据，表头内容基本一样，但列的顺序可能不同。
+
+请写一个 Python 脚本，合并成一个「全年汇总.xlsx」，放在同一个文件夹里。
+
+规则：
+- 一定要按表头名称对齐列，不要按列的位置对齐；
+- 增加一列「来源文件」，记录这一行来自哪个文件；
+- 跳过完全空白的行；
+- 只读取每个文件的第一张工作表；
+- 输出文件如果已存在，先备份成 全年汇总_旧.xlsx，不要直接覆盖。
+
+跑完请告诉我：总行数是多少、每个文件各贡献多少行、有没有哪些文件的表头对不上（列出具体列名）。</pre>
+      </div>
+
+      <dl>
+        <dt>预期结果</dt>
+        <dd>生成一个总表，列名统一，多出一列「来源文件」。终端会给出行数统计和表头差异提示。</dd>
+
+        <dt>这个需求用到的技巧</dt>
+        <dd>
+          <ul>
+            <li><strong>说清对齐方式</strong>——这是最容易出错、也最难发现的地方</li>
+            <li>限定<strong>只读第一张工作表</strong>，避免读到隐藏的辅助表</li>
+            <li><strong>验收标准明确</strong>：总行数 + 每文件行数 + 表头差异</li>
+            <li>要求<strong>先备份再覆盖</strong>，防止重复运行把结果洗掉</li>
+          </ul>
+        </dd>
+
+        <dt>常见坑</dt>
+        <dd>如果某个文件第 1 行是标题（如「XX公司2026年1月销售报表」），表头在第 2 行，必须提前说明：「表头在第 2 行」。否则整列会错位。</dd>
+      </dl>
+    </div>
+
+    <h2 id="case-word">案例 3：从 Word 里批量提取信息</h2>
+
+    <div class="case">
+      <header>
+        <h3>50 份合同的要素汇总成一张表</h3>
+        <span class="case-meta">难度：中等 · 约 10 分钟</span>
+      </header>
+
+      <dl>
+        <dt>场景</dt>
+        <dd>合同编号、甲方、乙方、签订日期、金额分散在几十份 Word 的不同位置。逐份打开抄写，一下午就没了，还容易抄错。</dd>
+
+        <dt>你需要准备</dt>
+        <dd>一个文件夹放 <code>.docx</code> 文件（注意：老格式 <code>.doc</code> 需要先另存为 <code>.docx</code>）。先抽两份看看字段的写法是否统一。</dd>
+      </dl>
+
+      <div class="copy">
+        <div class="copy-head"><span>把这段发给 Agent</span><button class="copy-btn" type="button">复制</button></div>
+        <pre>D:\工作\合同 文件夹里有大约 50 份 Word 文档（.docx）。
+
+请写一个脚本，从每份文档中提取以下字段，汇总成一个 Excel「合同清单.xlsx」：
+合同编号、甲方名称、乙方名称、签订日期、合同金额。
+
+规则：
+- 一行一份合同，第一列加上来源文件名，方便我核对；
+- 提取时按「关键词 + 后面的内容」来匹配，比如「合同编号：」后面那一段；
+- 如果某个字段在文档里找不到，就留空，并在「备注」列写「未找到：字段名」；
+- 日期统一成 2026-01-05 这种格式；
+- 金额只保留数字，不要「元」「¥」这类符号；
+- 不要修改任何原始 Word 文件。
+
+先拿 3 份文档试跑，把提取结果打印给我看，我确认格式没问题后再处理全部。</pre>
+      </div>
+
+      <dl>
+        <dt>预期结果</dt>
+        <dd>先看到 3 份的提取结果；确认后生成完整 Excel，缺字段的会在备注列标出。</dd>
+
+        <dt>这个需求用到的技巧</dt>
+        <dd>
+          <ul>
+            <li><strong>先给样例</strong>：抽取 3 份试跑，是最有效的质量检查</li>
+            <li>说明<strong>匹配规则</strong>（关键词后面那段），比「提取合同编号」具体得多</li>
+            <li>规定<strong>找不到时怎么办</strong>，而不是让它随便猜一个</li>
+            <li>统一<strong>格式标准</strong>（日期、金额），省掉后续手动清洗</li>
+          </ul>
+        </dd>
+
+        <dt>常见坑</dt>
+        <dd>扫描件（图片型 PDF / Word）里没有可提取的文字，脚本读出来是空的。这不是脚本的问题——需要先做 OCR。先确认你的文档是「文字版」而不是「拍照版」。</dd>
+      </dl>
+    </div>
+
+    <h2 id="case-image">案例 4：批量压缩图片</h2>
+
+    <div class="case">
+      <header>
+        <h3>300 张商品图统一尺寸和体积</h3>
+        <span class="case-meta">难度：入门 · 约 6 分钟</span>
+      </header>
+
+      <dl>
+        <dt>场景</dt>
+        <dd>上传平台限制单张不超过 500KB、长边 1200 像素。原图每张好几 MB，用在线工具一张张传太慢。</dd>
+
+        <dt>你需要准备</dt>
+        <dd>原图单独放一个文件夹，<strong>输出到另一个新文件夹</strong>，不要原地覆盖。</dd>
+      </dl>
+
+      <div class="copy">
+        <div class="copy-head"><span>把这段发给 Agent</span><button class="copy-btn" type="button">复制</button></div>
+        <pre>D:\素材\商品图 里有 300 张 jpg 图片，尺寸都很大。
+
+请写一个脚本批量处理：
+1. 把长边缩放到 1200 像素，另一边按比例缩放，不要拉伸变形；
+2. 保存质量 85，尽量让单张控制在 500KB 以内；
+3. 输出到 D:\素材\商品图_压缩（没有就自动新建），文件名保持不变；
+4. 原图一张都不要动。
+
+规则：
+- 如果某张图压缩后还是超过 500KB，自动降低质量再试，最多试 3 次，仍然超标就在结果里标出来；
+- 遇到不是 jpg 的文件，跳过并记录。
+
+跑完告诉我：处理了多少张、跳过多少张、压缩前总大小和压缩后总大小。</pre>
+      </div>
+
+      <dl>
+        <dt>预期结果</dt>
+        <dd>新文件夹里是处理后的图，原文件夹完全没变。终端给出体积对比和超标清单。</dd>
+
+        <dt>这个需求用到的技巧</dt>
+        <dd>
+          <ul>
+            <li>把主观的「压缩一下」变成<strong>可量化的指标</strong>（长边 1200、质量 85、500KB）</li>
+            <li><strong>输入输出分开放</strong>，天然具备回滚能力</li>
+            <li>为「试了还是不行」<strong>预设处理方式</strong>，避免脚本卡死或死循环</li>
+            <li>要求给出<strong>前后体积对比</strong>，验收有依据</li>
+          </ul>
+        </dd>
+
+        <dt>常见坑</dt>
+        <dd>第一次会自动安装 <code>Pillow</code> 库，需要你在终端确认。如果公司电脑装不了，把报错原文发给它，它会给出替代方案。</dd>
+      </dl>
+    </div>
+
+    <h2 id="save">把脚本变成「双击即用」</h2>
+    <p>脚本跑通后，让它再生成一个启动文件，以后就不用打开 Trae 了：</p>
+
+    <div class="copy">
+      <div class="copy-head"><span>生成双击运行的启动文件</span><button class="copy-btn" type="button">复制</button></div>
+      <pre>请在这个文件夹里生成一个「一键运行.bat」，双击就能执行刚才的脚本。
+
+要求：
+- 用相对路径，指向脚本自己所在的目录，这样整个文件夹复制到别的电脑也能用；
+- 运行结束后暂停，窗口不要立刻关闭，让我能看到结果；
+- 如果运行出错，把错误信息留在窗口里，不要一闪而过。</pre>
+    </div>
+
+    <p>还想更省事，可以再补一句，让它帮你设置定时：</p>
+
+    <div class="copy">
+      <div class="copy-head"><span>设置每天自动运行</span><button class="copy-btn" type="button">复制</button></div>
+      <pre>我想让这个脚本每天早上 9 点自动跑一次。
+请告诉我 Windows 上最简单的设置方法（比如任务计划程序），
+一步一步说，每一步点哪里都要写清楚，假设我没用过这个功能。</pre>
+    </div>
+
+    <h2 id="next">下一步能做什么</h2>
+    <p>跑通一个之后，你会发现套路是通用的。可以继续尝试：</p>
+    <div class="grid">
+      <div class="card"><h4>PDF 拆分与合并</h4><p>按页码拆成单页、把多个 PDF 合成一个、批量加水印。</p></div>
+      <div class="card"><h4>表格清洗</h4><p>去重、拆分姓名列、统一手机号格式、空值填充。</p></div>
+      <div class="card"><h4>文件比对</h4><p>两个版本的 Excel 找出差异行，输出变更清单。</p></div>
+      <div class="card"><h4>邮件批量发送</h4><p>按表格里的收件人逐条发送，附上对应附件。</p></div>
+      <div class="card"><h4>自动生成周报</h4><p>从数据表算好指标，套进固定模板输出 Word。</p></div>
+      <div class="card"><h4>文件名与内容检索</h4><p>在上千份文档里找出含某个关键词的那些。</p></div>
+    </div>
+
+    <div class="callout info">
+      <span class="c-ico">i</span>
+      <div><p><strong>一个通用公式：</strong>凡是「打开 → 复制 → 粘贴 → 保存」重复超过 20 次的工作，都值得花 10 分钟让 Agent 写个脚本。</p></div>
+    </div>
+
+    <div class="pager">
+      <a href="prompt.html"><span class="p-label">← 上一章</span><span class="p-title">如何提需求</span></a>
+      <a class="next" href="faq.html"><span class="p-label">下一章 →</span><span class="p-title">常见问题与安全清单</span></a>
+    </div>
+  </main>
+
+</div>
+
+<footer class="site-foot">
+  <p>用 Agent 写脚本 · 内部培训材料</p>
+  <p>示例以 Trae 客户端为准，界面可能随版本更新略有差异。</p>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

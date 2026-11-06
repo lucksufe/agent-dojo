@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>如何提需求 · 用 Agent 写脚本</title>
+<meta name="description" content="把「我想要……」说成 AI 能听懂的需求：五要素框架、正反例、可复制模板与追问话术。">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="prompt">
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">A</span>
+      <span class="brand-text">用 Agent 写脚本</span>
+    </a>
+    <nav class="nav">
+      <a href="index.html" data-nav="home">首页</a>
+      <a href="concepts.html" data-nav="concepts">基本概念</a>
+      <a href="setup.html" data-nav="setup">安装与配置</a>
+      <a href="prompt.html" data-nav="prompt">如何提需求</a>
+      <a href="practice.html" data-nav="practice">实战案例</a>
+      <a href="faq.html" data-nav="faq">常见问题</a>
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+
+  <aside class="side">
+    <h4>本章目录</h4>
+    <a href="#framework">五要素框架</a>
+    <a href="#template">可直接套用的模板</a>
+    <a href="#examples">三组正反例</a>
+    <a href="#techniques">八个实用技巧</a>
+    <a href="#followup">追问与纠偏话术</a>
+    <a href="#phrases">说法对照表</a>
+    <div class="side-cta">
+      <p>边看边试效果最好：打开一个空文件夹，照着模板说一遍。</p>
+      <a href="practice.html">去实战案例</a>
+    </div>
+  </aside>
+
+  <main>
+    <div class="page-head">
+      <span class="crumb">第 3 章</span>
+      <h1>如何提需求</h1>
+      <p>Agent 的上限，基本由你这句话决定。好消息是：不需要懂技术，只需要像交代同事办事那样，把五件事说清楚。</p>
+    </div>
+
+    <h2 id="framework">一、五要素框架：说清这五件事</h2>
+    <p>把需求想成一张工单。写完这五行，AI 的执行准确率会明显提高：</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th style="width:16%">要素</th><th style="width:26%">回答什么问题</th><th>示例</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>目标</strong></td>
+            <td>最终要什么结果</td>
+            <td>把 12 个月的销售表合并成一张年度汇总表</td>
+          </tr>
+          <tr>
+            <td><strong>输入</strong></td>
+            <td>数据在哪、什么格式、有多少</td>
+            <td><code>D:\月报</code> 下 12 个 <code>.xlsx</code>，文件名是 1月 到 12月</td>
+          </tr>
+          <tr>
+            <td><strong>输出</strong></td>
+            <td>结果放哪、叫什么、什么格式</td>
+            <td>生成 <code>全年汇总.xlsx</code>，放在同一文件夹</td>
+          </tr>
+          <tr>
+            <td><strong>规则</strong></td>
+            <td>特殊情况怎么处理、什么不能做</td>
+            <td>按表头对齐；跳过空行；不要改原文件；重名加序号</td>
+          </tr>
+          <tr>
+            <td><strong>验收</strong></td>
+            <td>怎么算做对了</td>
+            <td>跑完告诉我总行数，并列出对不上的表头</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout tip">
+      <span class="c-ico">✓</span>
+      <div><p>五要素不必逐条写标题，但<strong>内容必须齐</strong>。最容易被忘掉的是「规则」和「验收」——而这两项恰恰决定了它会不会默默把数据搞错。</p></div>
+    </div>
+
+    <h2 id="template">二、可直接套用的模板</h2>
+    <p>把空格填上，复制给 Agent 就能用。第一次做某类任务时，建议完整用这个结构；熟了以后可以简化。</p>
+
+    <div class="copy">
+      <div class="copy-head"><span>通用需求模板</span><button class="copy-btn" type="button">复制</button></div>
+      <pre>【目标】
+我要把 ______ 变成 ______。
+
+【输入】
+文件在 ______ 文件夹，是 ______ 格式，大约 ______ 个。
+每个文件的结构是这样的（贴一两行示例，把敏感信息替换掉）：
+______
+
+【输出】
+结果放到 ______，文件名是 ______，格式是 ______。
+
+【规则】
+1. 遇到 ______ 的情况，按 ______ 处理。
+2. 不要修改、不要删除原始文件。
+3. 先拿 3 个文件试跑给我看，我确认后再处理全部。
+
+【验收】
+跑完请告诉我：一共处理了多少个、成功多少、失败多少、失败的是哪几个。</pre>
+    </div>
+
+    <p>这个模板里，有三句话是「保命句」，建议每次都说：</p>
+    <ul>
+      <li><code>不要修改原始文件</code>——防止误覆盖。</li>
+      <li><code>先拿 3 个试跑</code>——把风险控制在小范围。</li>
+      <li><code>告诉我成功/失败数量</code>——防止它「默默跳过」了一部分。</li>
+    </ul>
+
+    <h2 id="examples">三、三组正反例</h2>
+
+    <h3>例 1：整理文件</h3>
+    <div class="compare">
+      <div class="bad">
+        <h4>不清楚</h4>
+        <p>「帮我整理一下下载文件夹，太乱了。」</p>
+      </div>
+      <div class="good">
+        <h4>清楚</h4>
+        <p>「把 <code>D:\下载</code> 里的文件按扩展名分到 图片、文档、压缩包、其他 四个子文件夹，文件名不要改，移动而不是复制。」</p>
+      </div>
+    </div>
+    <p><strong>差别在哪：</strong>「整理」是个主观词，每个人理解不同。换成<strong>分类依据（扩展名）+ 分类结果（四个子文件夹）+ 动作（移动）</strong>，就没有歧义了。</p>
+
+    <h3>例 2：合并表格</h3>
+    <div class="compare">
+      <div class="bad">
+        <h4>不清楚</h4>
+        <p>「把这些 Excel 合起来，做成汇总。」</p>
+      </div>
+      <div class="good">
+        <h4>清楚</h4>
+        <p>「合并成一个表，<strong>按表头名称对齐列</strong>（各文件列顺序不一样），加一列「来源文件」，跳过空行，表头只保留一行。」</p>
+      </div>
+    </div>
+    <p><strong>差别在哪：</strong>没说清「按列的位置还是按列的名字对齐」时，AI 可能选错，导致数据整体错位——而结果看起来还挺正常，很难发现。</p>
+
+    <h3>例 3：修改已有脚本</h3>
+    <div class="compare">
+      <div class="bad">
+        <h4>不清楚</h4>
+        <p>「这里不对，你改一下。」</p>
+      </div>
+      <div class="good">
+        <h4>清楚</h4>
+        <p>「第 3 个文件的日期没被识别出来，原因是它的格式是 <code>2026/1/5</code>，而脚本只认 <code>2026-01-05</code>。请兼容这两种写法，其他逻辑不要动。」</p>
+      </div>
+    </div>
+    <p><strong>差别在哪：</strong>「不对」只描述了情绪，没有描述<strong>现象、原因、范围</strong>。加上「其他逻辑不要动」，还能防止它顺手重写整个脚本。</p>
+
+    <h2 id="techniques">四、八个实用技巧</h2>
+
+    <h3>1. 说结果，不说技术</h3>
+    <p>你不需要知道 pandas、正则表达式、os 模块。说「按表头对齐」「把所有 .jpg 找出来」就行——把它该考虑的技术细节留给它。</p>
+
+    <h3>2. 给一个「长这样」的样例</h3>
+    <p>贴两行真实数据的结构（敏感内容替换成假数据），比描述十句都管用。它能直接照着这个格式输出。</p>
+
+    <div class="copy">
+      <div class="copy-head"><span>给样例的说法</span><button class="copy-btn" type="button">复制</button></div>
+      <pre>输入长这样（前两行）：
+订单号,客户,金额,日期
+A001,张三,1200,2026-01-05
+A002,李四,800,2026-01-06
+
+输出我希望长这样：
+客户,订单数,总金额
+张三,1,1200</pre>
+    </div>
+
+    <h3>3. 一次一件事，小步快跑</h3>
+    <p>别把「重命名 + 合并 + 做透视表 + 发邮件」塞进一段话。先做第一步，确认对了，再说「在此基础上加一步」。</p>
+
+    <h3>4. 明确「不要做什么」</h3>
+    <p>负面约束往往比正面要求更有效：<strong>不要动原文件、不要删除空行、不要改列名、不要联网、不要安装额外的库</strong>。</p>
+
+    <h3>5. 先要方案，再要代码</h3>
+    <p>任务比较绕时，先别让它写代码。让它说思路，你能提前发现理解偏差，比写完再返工省事得多。</p>
+
+    <div class="copy">
+      <div class="copy-head"><span>先看方案</span><button class="copy-btn" type="button">复制</button></div>
+      <pre>先不要写代码。先用中文告诉我你打算分几步做、每步读哪些文件、可能有什么风险。
+我看过之后再说「开始」。</pre>
+    </div>
+
+    <h3>6. 先小批量试跑</h3>
+    <p>这是最重要的一条。让它<strong>先打印结果、不要真的执行</strong>；或者只处理 3 个文件。确认无误再放开全量。</p>
+
+    <div class="copy">
+      <div class="copy-head"><span>空跑检查</span><button class="copy-btn" type="button">复制</button></div>
+      <pre>先不要真的改文件。只打印出「原文件名 → 新文件名」的对照表，我确认后再执行。</pre>
+    </div>
+
+    <h3>7. 给出验收标准</h3>
+    <p>「怎么样算完成」要说出来。否则它可能只处理了一部分就宣布搞定。比如：「总共应该有 312 行，如果对不上就告诉我哪里少了。」</p>
+
+    <h3>8. 报错时贴原文，不要只描述</h3>
+    <p>「报错了」这三个字没有信息量。把终端里那几行红字<strong>完整复制</strong>给它，包括最后一行。它能据此定位到具体行号。</p>
+
+    <h2 id="followup">五、追问与纠偏话术</h2>
+    <p>第一版不满意是正常的。下面这几句可以直接复制，覆盖了大部分场景：</p>
+
+    <div class="copy">
+      <div class="copy-head"><span>让它改得精准</span><button class="copy-btn" type="button">复制</button></div>
+      <pre>只改 xxx 这一处，其他代码保持原样，不要重写整个文件。</pre>
+    </div>
+
+    <div class="copy">
+      <div class="copy-head"><span>结果不对时</span><button class="copy-btn" type="button">复制</button></div>
+      <pre>结果不对。预期是：______
+实际是：______
+可能的原因：______
+请先分析原因，确认后只修改相关部分。</pre>
+    </div>
+
+    <div class="copy">
+      <div class="copy-head"><span>看不懂代码时</span><button class="copy-btn" type="button">复制</button></div>
+      <pre>请用大白话解释这个脚本每一步在做什么，假设我完全不懂编程。
+重点说明：它会改动哪些文件、有没有删除操作。</pre>
+    </div>
+
+    <div class="copy">
+      <div class="copy-head"><span>让它做成双击可运行</span><button class="copy-btn" type="button">复制</button></div>
+      <pre>请再帮我写一个 .bat 启动文件，双击就能运行这个脚本。
+运行结束后窗口不要立刻关闭，让我能看到结果。
+相对路径要用脚本自己所在的目录，这样我换电脑也能用。</pre>
+    </div>
+
+    <div class="copy">
+      <div class="copy-head"><span>让它写使用说明</span><button class="copy-btn" type="button">复制</button></div>
+      <pre>在同一个文件夹里生成一个「使用说明.txt」，写明：
+1. 这个脚本是做什么的；
+2. 运行前要准备什么；
+3. 怎么运行；
+4. 常见问题怎么办。
+用最简单的中文写，给不懂技术的人看。</pre>
+    </div>
+
+    <h2 id="phrases">六、说法对照表</h2>
+    <p>左边这些话很常见，但 AI 只能靠猜。右边是等效但更可执行的表达：</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th style="width:30%">你习惯说的</th><th style="width:32%">问题在哪</th><th>建议改成</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>「优化一下」</td><td>优化速度？体积？可读性？</td><td>「让它在 30 秒内跑完」/「让代码加中文注释」</td></tr>
+          <tr><td>「整理得好看点」</td><td>好看是主观的</td><td>「列宽自适应，表头加粗，冻结首行」</td></tr>
+          <tr><td>「处理一下这些数据」</td><td>处理成什么？</td><td>「去重、去掉空行、金额保留两位小数」</td></tr>
+          <tr><td>「这个不行」</td><td>没说哪不行</td><td>「第 5 行之后的日期都变成了空值」</td></tr>
+          <tr><td>「你自己看着办」</td><td>它只能猜，通常猜错</td><td>「如果没有把握，就按 A 方案做，并告诉我原因」</td></tr>
+          <tr><td>「全部都要」</td><td>范围不明</td><td>「这个文件夹下的全部 .xlsx，不含子文件夹」</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout info">
+      <span class="c-ico">i</span>
+      <div><p><strong>一个判断标准：</strong>如果你的需求可以直接转述给一个没见过这项工作的新同事，并且他能照着做出来，那这个需求就合格了。</p></div>
+    </div>
+
+    <div class="pager">
+      <a href="setup.html"><span class="p-label">← 上一章</span><span class="p-title">安装与配置</span></a>
+      <a class="next" href="practice.html"><span class="p-label">下一章 →</span><span class="p-title">实战案例</span></a>
+    </div>
+  </main>
+
+</div>
+
+<footer class="site-foot">
+  <p>用 Agent 写脚本 · 内部培训材料</p>
+  <p>示例以 Trae 客户端为准，界面可能随版本更新略有差异。</p>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

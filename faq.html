@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>常见问题与安全清单 · 用 Agent 写脚本</title>
+<meta name="description" content="上手疑问、报错排查、数据安全，以及动手前/运行前/分享前的检查清单。">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="faq">
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">A</span>
+      <span class="brand-text">用 Agent 写脚本</span>
+    </a>
+    <nav class="nav">
+      <a href="index.html" data-nav="home">首页</a>
+      <a href="concepts.html" data-nav="concepts">基本概念</a>
+      <a href="setup.html" data-nav="setup">安装与配置</a>
+      <a href="prompt.html" data-nav="prompt">如何提需求</a>
+      <a href="practice.html" data-nav="practice">实战案例</a>
+      <a href="faq.html" data-nav="faq">常见问题</a>
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+
+  <aside class="side">
+    <h4>本章目录</h4>
+    <a href="#start">上手相关</a>
+    <a href="#errors">出错与排查</a>
+    <a href="#security">数据安全</a>
+    <a href="#cost">费用与额度</a>
+    <a href="#checklist">检查清单</a>
+  </aside>
+
+  <main>
+    <div class="page-head">
+      <span class="crumb">第 5 章</span>
+      <h1>常见问题与安全清单</h1>
+      <p>遇到的问题基本都在这几张清单里。先看问题，再对一遍检查项，能省掉大部分返工。</p>
+    </div>
+
+    <h2 id="start">上手相关</h2>
+
+    <details class="faq">
+      <summary>我完全不会编程，真的能行吗？</summary>
+      <div class="faq-body">
+        <p>能。你要提供的不是编程知识，而是<strong>业务知识</strong>：文件在哪、字段什么意思、什么情况算异常、结果应该长什么样。这些恰恰是程序员的短板、你的长项。</p>
+        <p>需要会的只有三件小事：找到文件夹路径、看懂终端里有没有红色报错、会复制粘贴。前两件十分钟就能学会。</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>AI 写的代码我看不懂，怎么确认它没乱来？</summary>
+      <div class="faq-body">
+        <p>不用逐行看懂，用三个办法替代：</p>
+        <ul>
+          <li><strong>让它自己解释</strong>：说「用大白话说明这个脚本会改动哪些文件、有没有删除操作」。</li>
+          <li><strong>空跑</strong>：让它先只打印「将要做什么」，不真正执行。</li>
+          <li><strong>小批量验证</strong>：先处理 3 个文件，打开结果抽查，再放开全量。</li>
+        </ul>
+        <p>真要看代码，重点盯这几个词：<code>remove</code>、<code>unlink</code>、<code>rmtree</code>、<code>move</code>、<code>rename</code>、<code>open(...,'w')</code>。它们对应删除、移动、改名、覆盖，是最需要确认的地方。</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>它把我的文件改坏了怎么办？</summary>
+      <div class="faq-body">
+        <p>这就是为什么整份指南反复强调<strong>先备份</strong>。三层保险，按成本从低到高：</p>
+        <ol>
+          <li><strong>复制一份再动手</strong>：处理前把整个文件夹复制成「xxx_备份」。</li>
+          <li><strong>输入输出分开</strong>：让脚本读 A 文件夹、写 B 文件夹，原文件天然不受影响。</li>
+          <li><strong>用版本管理</strong>：熟悉以后可以让 Trae 帮你初始化 Git，每次改动都能回退。</li>
+        </ol>
+        <p>如果已经改坏了：先<strong>什么都不要再运行</strong>，去回收站找，或者用文件恢复工具。同时把现象告诉 Agent，让它分析脚本里哪一步做了覆盖。</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>为什么它一直让我点「同意」？</summary>
+      <div class="faq-body">
+        <p>因为写文件、跑命令属于有风险的操作，工具默认要你确认。这是保护机制，不是故障。</p>
+        <p>建议的做法：<strong>看一行再点</strong>。重点看命令里有没有 <code>del</code>、<code>rm</code>、<code>move</code>，路径是不是在工作区内。批量操作前，先拒绝一次，让它改成「先试 3 个」。</p>
+        <p>不要为了省事一路开「全部允许」——那等于把刹车拆了。</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>提示「上下文超限」或聊到后面它开始忘事？</summary>
+      <div class="faq-body">
+        <p>对话太长，最早的记录被挤出去了。两个处理办法：</p>
+        <ul>
+          <li><strong>开新对话</strong>，用三五行重新交代：工作区是什么、现在做到哪一步、接下来要做什么。</li>
+          <li><strong>减少喂给它的内容</strong>：不要让它读整本手册，只读相关的那一页；不要贴整张表，只贴表头和两三行。</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>写好的脚本怎么保存，下次还能用吗？</summary>
+      <div class="faq-body">
+        <p>能，而且很值得。脚本就是一个普通文件（通常是 <code>.py</code>），留在文件夹里就行。做三件事让它可复用：</p>
+        <ul>
+          <li>让它生成 <code>一键运行.bat</code>，以后双击即可；</li>
+          <li>让它写一个 <code>使用说明.txt</code>，记下用途、前置条件、运行方式；</li>
+          <li>把「脚本 + 说明 + 启动文件」打包成一个文件夹，按用途命名，比如「合同信息提取工具」。</li>
+        </ul>
+      </div>
+    </details>
+
+    <h2 id="errors">出错与排查</h2>
+
+    <details class="faq">
+      <summary>运行报错了，我该把什么发给它？</summary>
+      <div class="faq-body">
+        <p>把终端里的<strong>完整报错</strong>复制过去，尤其是最后一行（通常是 <code>XXXError: 具体原因</code>），以及它指向的文件名和行号。不要只说「报错了」。</p>
+        <p>再加一句现象描述会更准：「我用 3 个文件测试时报的这个错，这 3 个文件里有 1 个是 xls 格式。」</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>提示「找不到文件 / 路径不存在」</summary>
+      <div class="faq-body">
+        <p>九成是路径写错了。检查三点：</p>
+        <ul>
+          <li>路径是否真实存在，可以直接在资源管理器地址栏粘贴验证；</li>
+          <li>Windows 路径里的反斜杠，在代码里可能需要转义或改用正斜杠；</li>
+          <li>文件名里的空格、中文括号、全角字符是否一致。</li>
+        </ul>
+        <p>最省事的办法：在资源管理器里选中文件，<strong>按住 Shift 右键 →「复制文件地址」</strong>，直接粘给它。</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>脚本在我电脑能跑，同事电脑跑不了？</summary>
+      <div class="faq-body">
+        <p>通常是环境差异。让对方看到报错后告诉你，常见原因有：</p>
+        <ul>
+          <li>没装 Python，或装了但没勾选「Add to PATH」；</li>
+          <li>缺第三方库（<code>openpyxl</code>、<code>python-docx</code>、<code>Pillow</code>）；</li>
+          <li>脚本里写死了你电脑的绝对路径（比如 <code>D:\工作\...</code>）。</li>
+        </ul>
+        <p>第三条最容易被忽略。写脚本时就要求：「路径用相对于脚本所在目录的方式，不要写死绝对路径。」</p>
+      </div>
+    </details>
+
+    <h2 id="security">数据安全</h2>
+
+    <div class="callout danger">
+      <span class="c-ico">!</span>
+      <div>
+        <p><strong>发给 AI 的内容，等于发给了模型服务商。</strong>使用前请先确认公司对数据外发的相关规定；没有明确允许的，按「不能发」处理。</p>
+      </div>
+    </div>
+
+    <details class="faq">
+      <summary>哪些内容绝对不要发给 AI？</summary>
+      <div class="faq-body">
+        <ul>
+          <li>身份证号、银行卡号、完整手机号、家庭住址等个人信息；</li>
+          <li>客户名单、合同原文、未公开的财务数据；</li>
+          <li>公司内部系统地址、账号密码、数据库连接串；</li>
+          <li>API Key、访问令牌、证书文件；</li>
+          <li>标注了「机密」「内部」字样的任何材料。</li>
+        </ul>
+        <p>确实需要描述结构时，用<strong>假数据替换</strong>：把真实姓名换成「张三」，金额换成「1000」，编号换成「A001」。</p>
+      </div>
+    </details>
+
+    <details class="faq" id="cost">
+      <summary>用了自己的 API Key，会不会很贵？</summary>
+      <div class="faq-body">
+        <p>日常小脚本的消耗很低。估算方式：一次任务大致消耗「输入 + 输出」几千个 token，多数服务商的价格在每百万 token 几元到几十元区间，折算下来单次通常只有几分钱。</p>
+        <p>真正烧钱的是两种情况：让它反复读大量文件、或者一个任务来回改几十轮。控制办法：只给相关文件、一次说清需求、跑偏了就开新对话。</p>
+        <p>另外建议在服务商控制台设置<strong>消费限额提醒</strong>，避免意外。</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>免费额度用完了怎么办？</summary>
+      <div class="faq-body">
+        <p>三条路：等额度刷新、升级套餐、或者按第 2 章的方法接入自己的 Key。如果公司统一采购了模型服务，找 IT 要 Key 和接口地址，通常比个人付费更划算，也更符合合规要求。</p>
+      </div>
+    </details>
+
+    <h2 id="checklist">检查清单</h2>
+    <p>把这三张清单存下来，每次照做一遍，能避免 90% 的翻车。</p>
+
+    <h3>动手前</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th style="width:8%">✓</th><th>检查项</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>☐</td><td>为这次任务单独建了文件夹，没有直接对着桌面或 C 盘操作</td></tr>
+          <tr><td>☐</td><td>原始数据已复制备份，或确认输入输出分开存放</td></tr>
+          <tr><td>☐</td><td>文件里没有不能外发的敏感信息，或已做脱敏</td></tr>
+          <tr><td>☐</td><td>Trae 打开的是正确的文件夹，左侧能看文件列表</td></tr>
+          <tr><td>☐</td><td>需求里写清了目标、输入、输出、规则、验收</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>运行前</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th style="width:8%">✓</th><th>检查项</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>☐</td><td>先空跑过，看过「将要做什么」的输出</td></tr>
+          <tr><td>☐</td><td>先用 3 个文件试跑，结果抽查正确</td></tr>
+          <tr><td>☐</td><td>确认脚本里没有删除、覆盖原文件的操作</td></tr>
+          <tr><td>☐</td><td>确认路径是相对路径，没有写死自己的电脑路径</td></tr>
+          <tr><td>☐</td><td>知道跑完后去哪里看结果、怎么回滚</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>分享前</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th style="width:8%">✓</th><th>检查项</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>☐</td><td>脚本里没有硬编码的 Key、密码、账号</td></tr>
+          <tr><td>☐</td><td>没有把你的个人路径、内网地址一起打包出去</td></tr>
+          <tr><td>☐</td><td>附了「使用说明.txt」，写明前置条件和运行方法</td></tr>
+          <tr><td>☐</td><td>在另一台电脑上试过一次</td></tr>
+          <tr><td>☐</td><td>对方知道出问题该找谁、怎么恢复</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout tip">
+      <span class="c-ico">✓</span>
+      <div><p><strong>最后一句话：</strong>Agent 让你不必会写代码，但「验证结果」这件事永远得由人来做。它负责快，你负责对。</p></div>
+    </div>
+
+    <div class="pager">
+      <a href="practice.html"><span class="p-label">← 上一章</span><span class="p-title">实战案例</span></a>
+      <a class="next" href="index.html"><span class="p-label">回到 →</span><span class="p-title">首页</span></a>
+    </div>
+  </main>
+
+</div>
+
+<footer class="site-foot">
+  <p>用 Agent 写脚本 · 内部培训材料</p>
+  <p>示例以 Trae 客户端为准，界面可能随版本更新略有差异。</p>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

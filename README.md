@@ -1,100 +1,41 @@
-# Agent Dojo
+# 用 Agent 写脚本 · 普通职员上手指南
 
-Agent 使用教学与实战分享网站，帮助新手从零开始学习 AI Agent 的使用。
+面向普通职员的 AI Agent 使用指南：以大模型/Trae 为例，讲清楚基本概念、模型 Key 配置、如何描述需求，以及可以直接照抄的实战脚本案例。
 
-## 项目简介
+## 内容结构
 
-这是一个面向新手的 Agent 使用教学网站，特点：
-
-- **交互式引导**：步骤勾选、进度跟踪、鼓励反馈
-- **多平台支持**：DeepSeek、小米 MiMo、Claude
-- **实战案例**：展示完整的 Agent 交互过程
-- **社区贡献**：通过 GitHub PR 提交你的案例
-- **移动端适配**：响应式设计，支持手机访问
+| 页面 | 说明 |
+| --- | --- |
+| `index.html` | 首页：痛点场景、上手三步、阅读路线 |
+| `concepts.html` | 基本概念：大模型、提示词、上下文、Token、Agent、工具调用、权限确认 |
+| `setup.html` | 安装与配置：Trae 下载、界面、模式切换、添加模型 Key |
+| `prompt.html` | 如何提需求：目标—输入—输出—规则—验收五要素与模板 |
+| `practice.html` | 实战案例：批量重命名、合并 Excel、提取 Word 信息、压缩图片 |
+| `faq.html` | 常见问题、安全清单与上手检查清单 |
 
 ## 技术栈
 
-- Vue 3 + Vite 5
-- Vue Router 4
-- 纯 CSS 样式（无 UI 框架）
-- 静态部署（Vercel）
+纯静态站点，无构建步骤：
 
-## 本地开发
+- 原生 HTML + CSS + JavaScript
+- 样式：`assets/css/style.css`
+- 交互：`assets/js/main.js`（导航高亮、目录跟随、一键复制）
+
+## 本地预览
 
 ```bash
-# 安装依赖
-npm install
-
-# 启动开发服务器
-npm run dev
-
-# 构建生产版本
-npm run build
+# 任选一种
+python3 -m http.server 8080
+# 或
+npx serve .
 ```
 
-## 项目结构
-
-```
-src/
-├── components/
-│   ├── layout/        # Header、Sidebar
-│   ├── tutorial/      # StepCard、StepProgress
-│   └── showcase/      # ProjectCard
-├── views/             # 页面组件
-├── data/              # 数据文件
-│   ├── steps.js       # 入门教程步骤
-│   ├── tips.js        # 小技巧
-│   └── projects/      # 实战案例
-└── styles/            # CSS 样式
-```
-
-## 贡献案例
-
-欢迎提交你自己的 Agent 使用案例！
-
-1. Fork 本仓库
-2. 在 `src/data/projects/` 目录下创建新的案例文件
-3. 按照现有案例格式编写（包含多步骤交互）
-4. 提交 Pull Request
-
-案例格式示例：
-
-```json
-{
-  "title": "项目标题",
-  "author": "作者",
-  "description": "项目简介",
-  "tags": ["标签1", "标签2"],
-  "difficulty": "beginner|intermediate|advanced",
-  "agent": {
-    "name": "Agent 名称（如 Claude Code、Cursor 等）",
-    "version": "Agent 版本号",
-    "model": "使用的模型名称"
-  },
-  "steps": [
-    {
-      "title": "步骤标题",
-      "userMessage": "用户输入",
-      "agentResponse": "Agent 响应",
-      "code": "相关代码（可选）",
-      "result": "步骤结果（可选）"
-    }
-  ],
-  "finalResult": {
-    "description": "最终结果"
-  },
-  "tips": ["经验总结"]
-}
-```
+然后打开 <http://localhost:8080>。
 
 ## 部署
 
-项目通过 GitHub + Vercel 自动部署：
+仓库根目录即为站点根目录，可直接部署到任意静态托管（Vercel、GitHub Pages、Nginx 等），无需构建命令，输出目录为 `.`。
 
-1. 推送代码到 GitHub
-2. 在 Vercel 导入仓库
-3. 自动构建部署
+## 归档说明
 
-## 许可证
-
-MIT
+仓库中的 `archive/` 目录保留了旧版 Agent Dojo（Vue 3 + Vite）的源码，仅作历史存档，不再部署。详见 [`archive/README.md`](archive/README.md)。

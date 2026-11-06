@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>安装与配置（含模型 Key） · 用 Agent 写脚本</title>
+<meta name="description" content="下载 Trae、认识界面、切换模式，以及如何添加自己的模型 API Key。">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="setup">
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">A</span>
+      <span class="brand-text">用 Agent 写脚本</span>
+    </a>
+    <nav class="nav">
+      <a href="index.html" data-nav="home">首页</a>
+      <a href="concepts.html" data-nav="concepts">基本概念</a>
+      <a href="setup.html" data-nav="setup">安装与配置</a>
+      <a href="prompt.html" data-nav="prompt">如何提需求</a>
+      <a href="practice.html" data-nav="practice">实战案例</a>
+      <a href="faq.html" data-nav="faq">常见问题</a>
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+
+  <aside class="side">
+    <h4>本章目录</h4>
+    <a href="#download">下载与安装</a>
+    <a href="#interface">认识界面</a>
+    <a href="#modes">两种模式：Chat 与 Builder</a>
+    <a href="#api-key">添加自己的模型 Key</a>
+    <a href="#providers">常见服务商配置</a>
+    <a href="#verify">怎么确认接通了</a>
+    <a href="#python">准备运行环境</a>
+    <a href="#troubleshoot">配置失败排查</a>
+    <div class="side-cta">
+      <p>只想快点试一次？先按默认模型跑通，再回来配 Key。</p>
+      <a href="practice.html">跳到实战案例</a>
+    </div>
+  </aside>
+
+  <main>
+    <div class="page-head">
+      <span class="crumb">第 2 章</span>
+      <h1>安装与配置</h1>
+      <p>这一章只做一件事：让你的电脑具备「说一句话就生成脚本」的能力。全流程大约 15 分钟，配置模型 Key 的部分在下面第三节。</p>
+    </div>
+
+    <h2 id="download">1. 下载与安装</h2>
+    <div class="steps">
+      <div class="step">
+        <h3>下载 Trae</h3>
+        <p>访问 <strong>trae.cn</strong>（国内版）或 <strong>trae.ai</strong>（国际版），下载 Windows / macOS 安装包。国内版注册更简单，模型服务在国内，网络更稳，建议优先选国内版。</p>
+      </div>
+      <div class="step">
+        <h3>安装并登录</h3>
+        <p>一路默认安装即可。首次启动会要求登录，用手机号或邮箱注册一个账号，跟着引导走完（选择主题、是否导入已有编辑器设置），这些选项都不影响后续使用。</p>
+      </div>
+      <div class="step">
+        <h3>打开一个文件夹作为工作区</h3>
+        <p>点「打开文件夹」，<strong>新建一个空文件夹</strong>专门放这次任务的资料，例如 <code>D:\AI脚本\第一个脚本</code>。把要处理的文件复制进去。</p>
+      </div>
+    </div>
+
+    <div class="callout tip">
+      <span class="c-ico">✓</span>
+      <div><p><strong>单独建文件夹</strong>是整份指南里最值得养成的习惯。它决定了 Agent 能看到什么、能改什么，出问题时也最容易被还原。</p></div>
+    </div>
+
+    <h2 id="interface">2. 认识界面</h2>
+    <p>Trae 的界面和常见编辑器类似，分成四块。你只需要记住下面这几个位置：</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th style="width:20%">区域</th><th style="width:26%">位置</th><th>用来做什么</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>文件区</strong></td><td>左侧</td><td>显示你打开的工作区里有哪些文件，点一下就能看内容</td></tr>
+          <tr><td><strong>编辑区</strong></td><td>中间</td><td>查看和修改文件，AI 生成的脚本会出现在这里</td></tr>
+          <tr><td><strong>AI 对话区</strong></td><td>右侧</td><td>你在这里提需求，它在这里汇报进度、请求权限</td></tr>
+          <tr><td><strong>终端</strong></td><td>下方</td><td>脚本真正运行的地方。AI 会自动往里输入命令，你也可以自己敲</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout info">
+      <span class="c-ico">i</span>
+      <div><p><strong>找不到设置？</strong>点右上角的头像或齿轮图标；快捷键 <span class="kbd">Ctrl</span> + <span class="kbd">,</span> 通常也可以直接打开设置。</p></div>
+    </div>
+
+    <h2 id="modes">3. 两种模式：Chat 与 Builder</h2>
+    <p>Trae 的对话框通常提供两种模式，理解区别就不会用错：</p>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <span class="tag gray">Chat 模式</span>
+        <h4 style="margin-top:10px">问答式</h4>
+        <p>你说，它答。只给建议和代码片段，<strong>不会自动改你的文件</strong>。适合：问概念、让它解释一段代码、讨论方案。</p>
+      </div>
+      <div class="card">
+        <span class="tag">Builder 模式</span>
+        <h4 style="margin-top:10px">执行式（Agent）</h4>
+        <p>它会自己读文件、建文件、跑命令、改错，直到任务完成。<strong>写脚本就用这个。</strong>每一步写入前会请求你的确认。</p>
+      </div>
+    </div>
+
+    <p>如果你只是想「先把需求聊清楚再动手」，可以在 Chat 里讨论，确定方案后切到 Builder 说一句「按刚才的方案执行」。</p>
+
+    <h2 id="api-key">4. 添加自己的模型 Key（重点）</h2>
+
+    <h3>为什么需要自己的 Key</h3>
+    <p>Trae 登录后会附带一定的免费额度，够你熟悉功能。但下面几种情况，需要接入自己的模型服务：</p>
+    <ul>
+      <li><strong>免费额度用完了</strong>，继续用要排队或付费。</li>
+      <li><strong>公司有统一采购的模型服务</strong>，IT 给了你 Key 和接口地址。</li>
+      <li><strong>你希望用某个特定模型</strong>，比如代码能力更强、或者更便宜的。</li>
+      <li><strong>数据合规要求</strong>，必须走公司指定的通道。</li>
+    </ul>
+
+    <h3>动手前，先准备三样东西</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th style="width:24%">要准备</th><th>它是什么</th><th>去哪拿</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>API Key</strong></td>
+            <td>一串很长的字符，相当于「密码」，一般以 <code>sk-</code> 开头</td>
+            <td>模型服务商的控制台 → API Keys → 创建</td>
+          </tr>
+          <tr>
+            <td><strong>Base URL</strong><br><span class="tag gray">接口地址</span></td>
+            <td>请求发往哪个服务器，通常以 <code>/v1</code> 结尾</td>
+            <td>服务商的「API 文档」里，找「兼容 OpenAI」那一节</td>
+          </tr>
+          <tr>
+            <td><strong>模型 ID</strong><br><span class="tag gray">模型名称</span></td>
+            <td>要用哪个模型，比如 <code>deepseek-chat</code></td>
+            <td>服务商的「模型列表」页面</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>这三样东西通常都在服务商控制台的「API Key / 密钥管理」和「开发文档」里，五分钟能找齐。如果公司统一采购，直接问 IT 要这三个值。</p>
+
+    <h3>填写步骤</h3>
+    <div class="steps">
+      <div class="step">
+        <h3>打开设置 → 模型</h3>
+        <p>点右上角头像或齿轮进入设置，在左侧找到「模型 / Models」这一类选项。不同版本的菜单位置和叫法会略有差别，关键是找和 <strong>Model</strong> 相关的设置页。</p>
+      </div>
+      <div class="step">
+        <h3>选择「添加模型 / 自定义模型」</h3>
+        <p>点「+ 添加」或「Add Model」。如果服务商列表里有你用的那家，直接选；没有就选 <strong>OpenAI 兼容 / OpenAI Compatible</strong>（绝大多数国内厂商都支持这种格式）。</p>
+      </div>
+      <div class="step">
+        <h3>粘贴 API Key</h3>
+        <p>把 Key 完整粘进去。<strong>注意前后不要带空格</strong>，也不要漏掉中间的字符——这是失败率最高的一步。</p>
+      </div>
+      <div class="step">
+        <h3>填写 Base URL</h3>
+        <p>照抄服务商文档里的地址。<strong>不要自己加路径</strong>，比如文档给的是 <code>https://api.deepseek.com/v1</code>，就原样填，不要再补 <code>/chat/completions</code>。</p>
+      </div>
+      <div class="step">
+        <h3>填写模型 ID 并保存</h3>
+        <p>填服务商文档里的确切名称，区分大小写、区分版本号。保存后一般会有「测试连接」按钮，先点它。</p>
+      </div>
+      <div class="step">
+        <h3>在对话框里选中这个模型</h3>
+        <p>回到对话区，点模型下拉框，选中刚添加的那个，可以设为默认。之后新建对话就会自动用它。</p>
+      </div>
+    </div>
+
+    <div class="callout warn">
+      <span class="c-ico">!</span>
+      <div>
+        <p><strong>Key 就是密码。</strong>不要截图发群、不要写进脚本文件、不要上传到网盘或代码仓库。如果怀疑泄露，立刻去服务商控制台删除这个 Key 并重新创建——旧 Key 会立即失效。</p>
+      </div>
+    </div>
+
+    <h2 id="providers">5. 常见服务商配置参考</h2>
+    <p>下面是常见服务商的填写示例，方便你对照。<strong>以服务商官方文档为准</strong>——地址和模型名会随版本更新，这里只帮你理解「该填什么格式」。</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>服务商</th><th>Base URL 示例</th><th>模型 ID 示例</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>DeepSeek</td><td><code>https://api.deepseek.com/v1</code></td><td><code>deepseek-chat</code></td></tr>
+          <tr><td>阿里云百炼（通义）</td><td><code>https://dashscope.aliyuncs.com/compatible-mode/v1</code></td><td><code>qwen-plus</code></td></tr>
+          <tr><td>智谱 GLM</td><td><code>https://open.bigmodel.cn/api/paas/v4</code></td><td><code>glm-4-plus</code></td></tr>
+          <tr><td>月之暗面 Kimi</td><td><code>https://api.moonshot.cn/v1</code></td><td><code>moonshot-v1-8k</code></td></tr>
+          <tr><td>OpenAI</td><td><code>https://api.openai.com/v1</code></td><td><code>gpt-4o-mini</code></td></tr>
+          <tr><td>本地 Ollama</td><td><code>http://localhost:11434/v1</code></td><td><code>qwen2.5-coder</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout info">
+      <span class="c-ico">i</span>
+      <div>
+        <p>在国内网络环境下，境外服务（如 OpenAI）通常需要额外配置网络代理，公司网络还可能有拦截。如果没有把握，<strong>优先选国内服务商</strong>，能省掉一大半排查时间。</p>
+      </div>
+    </div>
+
+    <h2 id="verify">6. 怎么确认真的接通了</h2>
+    <p>配置成功后，别急着写脚本。先发一句最简单的话做冒烟测试：</p>
+
+    <div class="copy">
+      <div class="copy-head"><span>测试模型是否可用</span><button class="copy-btn" type="button">复制</button></div>
+      <pre>你好，请用一句话回答：1 加 1 等于几？</pre>
+    </div>
+
+    <p>如果秒回「2」，说明链路是通的。如果没反应、报错或一直转圈，看下一节的排查表。</p>
+    <p>接着再测一次「它能不能看到文件」——这一步能确认工作区选对了：</p>
+
+    <div class="copy">
+      <div class="copy-head"><span>测试工作区是否正常</span><button class="copy-btn" type="button">复制</button></div>
+      <pre>请列出当前工作区里有哪些文件，只列文件名，不要修改任何东西。</pre>
+    </div>
+
+    <h2 id="python">7. 准备运行环境</h2>
+    <p>大多数小脚本用 Python 写，处理 Excel、Word、图片也靠 Python 的现成库。你不需要学会写，但电脑上得<strong>装好 Python</strong>。</p>
+
+    <div class="steps">
+      <div class="step">
+        <h3>先让 Agent 帮你检查</h3>
+        <div class="copy">
+          <div class="copy-head"><span>直接发这句话给它</span><button class="copy-btn" type="button">复制</button></div>
+          <pre>请在终端里检查这台电脑是否已经安装 Python，告诉我版本号。
+如果没装，给我 Windows 上最简单的安装方法，一步一步说，不要让我自己找文档。</pre>
+        </div>
+      </div>
+      <div class="step">
+        <h3>没装就装一个</h3>
+        <p>到 <strong>python.org</strong> 下载最新版，安装时<strong>务必勾选「Add Python to PATH」</strong>，这一步漏了后面会很麻烦。装完重启一下 Trae。</p>
+      </div>
+      <div class="step">
+        <h3>缺什么库，让它自己装</h3>
+        <p>处理 Excel 需要 <code>openpyxl</code>，处理 Word 需要 <code>python-docx</code>，处理图片需要 <code>Pillow</code>。不用自己记，直接说「需要什么库你自己装」。它会在终端执行安装命令，你点同意即可。</p>
+      </div>
+    </div>
+
+    <h2 id="troubleshoot">8. 配置失败怎么排查</h2>
+    <p>报错信息通常很直白，对照下面这张表，八成能自己解决：</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th style="width:30%">你看到的提示</th><th style="width:28%">大概率原因</th><th>怎么解决</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>401 Unauthorized</code><br><code>Invalid API Key</code></td><td>Key 错了、过期，或前后多了空格</td><td>回控制台重新复制一次，粘贴后检查首尾</td></tr>
+          <tr><td><code>404 Not Found</code></td><td>Base URL 写错了，多写或少写了 <code>/v1</code></td><td>一字不差地照抄文档里的地址</td></tr>
+          <tr><td><code>model not found</code><br><code>invalid model</code></td><td>模型 ID 拼错、大小写不符</td><td>用文档里的确切写法，别自己简写</td></tr>
+          <tr><td><code>timeout</code> / 一直转圈</td><td>网络不通、需要代理，或公司网络拦截</td><td>换国内服务商；检查代理设置；换网络试</td></tr>
+          <tr><td><code>402</code> / <code>insufficient balance</code></td><td>账户余额不足</td><td>充值，或换一个可用的 Key</td></tr>
+          <tr><td>能连上但回答很笨、说不全</td><td>选了轻量模型，或上下文被塞太满</td><td>换主力模型；新开一段对话重新交代</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout tip">
+      <span class="c-ico">✓</span>
+      <div><p>搞不定时，把<strong>完整报错原文</strong>复制给 Agent，说「这是我配置模型时遇到的报错，帮我判断是哪一步错了」。它对这些错误码很熟，往往一句话就能指出来。</p></div>
+    </div>
+
+    <div class="pager">
+      <a href="concepts.html"><span class="p-label">← 上一章</span><span class="p-title">基本概念</span></a>
+      <a class="next" href="prompt.html"><span class="p-label">下一章 →</span><span class="p-title">如何提需求</span></a>
+    </div>
+  </main>
+
+</div>
+
+<footer class="site-foot">
+  <p>用 Agent 写脚本 · 内部培训材料</p>
+  <p>示例以 Trae 客户端为准，界面可能随版本更新略有差异。</p>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
